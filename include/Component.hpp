@@ -10,6 +10,7 @@ public:
     virtual ~Component();
 
     virtual void update();
+	virtual void processInput();
 
     // getters
     int getUpdateOrder() const

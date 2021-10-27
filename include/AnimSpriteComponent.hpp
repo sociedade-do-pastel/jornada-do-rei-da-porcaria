@@ -37,9 +37,17 @@ public:
         m_frameSpeed = speed;
     }
 
+	void setFrameSeq(std::vector<int> seq)
+	{
+		m_frameSeq = seq;
+	}
+
 private:
     int m_frameCounter{0};
     int m_currentFrame{0};
     int m_qtFrames{0};
     int m_frameSpeed;
+
+	std::vector<int> m_frameSeq;
+	int m_seqCounter;
 };

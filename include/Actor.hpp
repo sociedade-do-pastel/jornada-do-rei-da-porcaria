@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <cmath>
 #include <raylib.h>
 #include <vector>
 
@@ -25,6 +26,7 @@ public:
     void updateComponents();
 
     virtual void updateActor();
+	virtual void processInput();
 
     // getters
     const Vector2& getPosition() const
@@ -55,6 +57,11 @@ public:
     Game* getGame()
     {
         return m_game;
+    }
+	
+    Vector2 GetForward() const
+    {
+        return Vector2{cosf(m_rotation), -sinf(m_rotation)};
     }
 
     // setters

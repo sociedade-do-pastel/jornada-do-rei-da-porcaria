@@ -4,6 +4,8 @@
 
 // forward declaration
 class Game;
+class AnimSpriteComponent;
+class InputComponent;
 
 class Player : public Actor
 {
@@ -28,4 +30,7 @@ public:
 private:
     float m_speed;
     int m_lifes;
+
+    AnimSpriteComponent* spt{nullptr};
+	InputComponent* ipc{nullptr};
 };

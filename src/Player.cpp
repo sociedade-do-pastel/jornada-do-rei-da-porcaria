@@ -1,13 +1,21 @@
 #include "../include/Player.hpp"
 
 #include "../include/AnimSpriteComponent.hpp"
+#include "../include/InputComponent.hpp"
 
 Player::Player(Game* game) : Actor(game)
 {
-	AnimSpriteComponent* spt = new AnimSpriteComponent(this);
-	spt->setAnimTextures("assets/papaco48.png", 16);
+    spt = new AnimSpriteComponent(this);
+    spt->setAnimTextures("assets/papaco48.png", 16);
+	
+    ipc = new InputComponent(this);
+    ipc->setUpKey(KEY_W);
+    ipc->setDownKey(KEY_S);
+    ipc->setLeftKey(KEY_A);
+    ipc->setRightKey(KEY_D);
 
-	setPosition({200, 200});
+    ipc->setMaxVerticalSpeed(150.0f);
+    ipc->setMaxHorizontalSpeed(150.0f);
 }
 
 Player::~Player()
@@ -16,12 +24,18 @@ Player::~Player()
 
 void Player::updateActor()
 {
-	Actor::updateActor();
-	Vector2 pos = getPosition();
+    Actor::updateActor();
 
-	// do something
-	
-	setPosition(pos);
+    if (ipc->getVerticalSpeed() > 0)
+        spt->setFrameSeq({4, 5, 6});
+	if (ipc->getVerticalSpeed() < 0)
+        spt->setFrameSeq({10, 11, 12});
+    if (ipc->getHorizontalSpeed() > 0)
+        spt->setFrameSeq({1, 2, 3});
+    if (ipc->getHorizontalSpeed() < 0)
+        spt->setFrameSeq({7, 8, 9});
+    if (ipc->getHorizontalSpeed() == 0 && ipc->getVerticalSpeed() == 0)
+        spt->setFrameSeq({0});
 }
 
 void Player::processKeyboard()

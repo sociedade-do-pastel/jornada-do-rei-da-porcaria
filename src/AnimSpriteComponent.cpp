@@ -15,10 +15,12 @@ void AnimSpriteComponent::update()
 
     if (m_frameCounter >= (60 / m_frameSpeed)) {
         m_frameCounter = 0;
-        ++m_currentFrame;
 
-        if (m_currentFrame > m_qtFrames)
-            m_currentFrame = 0;
+        ++m_seqCounter;
+        if (m_seqCounter >= m_frameSeq.size())
+            m_seqCounter = 0;
+
+        m_currentFrame = m_frameSeq[m_seqCounter];
 
         m_frameRec.x
             = (float)m_currentFrame * (float)m_texture.width / m_qtFrames;

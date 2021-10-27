@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream>
+#include <raymath.h>
+
 #include "Component.hpp"
 
 // forward declaration
@@ -14,28 +17,28 @@ public:
     void update() override;
 
     // getters
-    float getAngularSpeed() const
+    float getVerticalSpeed() const
     {
-        return m_angularSpeed;
+        return m_verticalSpeed;
     }
 
-    float getForwardSpeed() const
+    float getHorizontalSpeed() const
     {
-        return m_forwardSpeed;
+        return m_horizontalSpeed;
     }
 
     // setters
-    void setAngularSpeed(float speed)
+    void setVerticalSpeed(float speed)
     {
-        m_angularSpeed = speed;
+        m_verticalSpeed = speed;
     }
 
-    void setForwardSpeed(float speed)
+    void setHorizontalSpeed(float speed)
     {
-        m_forwardSpeed = speed;
+        m_horizontalSpeed = speed;
     }
 
 private:
-    float m_angularSpeed;
-    float m_forwardSpeed;
+    float m_verticalSpeed;
+    float m_horizontalSpeed;
 };

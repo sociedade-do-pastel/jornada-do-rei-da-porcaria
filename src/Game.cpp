@@ -35,7 +35,7 @@ void Game::runLoop()
 
 void Game::shutdown()
 {
-	unloadData();
+    unloadData();
     CloseWindow();
 }
 
@@ -93,6 +93,8 @@ void Game::removeSprite(SpriteComponent* sprite)
 
 void Game::processInput()
 {
+    for (auto& a : m_actors)
+        a->processInput();
 }
 
 void Game::updateGame()
@@ -132,7 +134,8 @@ void Game::generateOutput()
 
 void Game::loadData()
 {
-	p = new Player(this);
+    p = new Player(this);
+    p->setPosition({GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f});
 }
 
 void Game::unloadData()

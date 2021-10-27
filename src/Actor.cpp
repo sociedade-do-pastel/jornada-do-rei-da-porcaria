@@ -35,6 +35,14 @@ void Actor::updateActor()
 {
 }
 
+void Actor::processInput()
+{
+    if (m_state == State::Active) {
+        for (auto& c : m_components)
+            c->processInput();
+    }
+}
+
 void Actor::addComponent(Component* component)
 {
     int myOrder = component->getUpdateOrder();
