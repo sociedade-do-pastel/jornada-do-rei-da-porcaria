@@ -28,8 +28,9 @@ public:
         setTexture(texture);
         m_qtFrames = qtFrames;
 
-        m_frameRec = {0.0f, 0.0f, (float)m_texture.width / qtFrames,
-                      (float)m_texture.height};
+        m_frameRec = {1.0f, 1.0f,
+                      static_cast<float>(m_texture.width / qtFrames - 2.0f),
+                      static_cast<float>(m_texture.height - 2.0f)};
     }
 
     void setFrameSpeed(int speed)
@@ -37,10 +38,10 @@ public:
         m_frameSpeed = speed;
     }
 
-	void setFrameSeq(std::vector<int> seq)
-	{
-		m_frameSeq = seq;
-	}
+    void setFrameSeq(std::vector<int> seq)
+    {
+        m_frameSeq = seq;
+    }
 
 private:
     int m_frameCounter{0};
@@ -48,6 +49,6 @@ private:
     int m_qtFrames{0};
     int m_frameSpeed;
 
-	std::vector<int> m_frameSeq;
-	int m_seqCounter;
+    std::vector<int> m_frameSeq;
+    int m_seqCounter;
 };

@@ -18,8 +18,8 @@ SpriteComponent::~SpriteComponent()
 
 void SpriteComponent::update()
 {
-    m_frameRec = {1.0f, 0.0f, static_cast<float>(m_texture.width - 2.0f),
-                  static_cast<float>(m_texture.height)};
+    m_frameRec = {1.0f, 1.0f, static_cast<float>(m_texture.width - 2.0f),
+                  static_cast<float>(m_texture.height - 2.0f)};
 }
 
 void SpriteComponent::draw()
