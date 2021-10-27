@@ -22,8 +22,8 @@ void AnimSpriteComponent::update()
 
         m_currentFrame = m_frameSeq[m_seqCounter];
 
-        m_frameRec.x
-            = (float)m_currentFrame * (float)m_texture.width / m_qtFrames;
-        m_frameRec.width = m_texture.width / m_qtFrames;
+        m_frameRec.x = static_cast<float>(
+            m_currentFrame * m_texture.width / m_qtFrames + 1);
+        m_frameRec.width = m_texture.width / m_qtFrames - 2.0f;
     }
 }

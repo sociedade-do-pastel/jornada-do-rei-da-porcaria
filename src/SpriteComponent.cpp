@@ -18,7 +18,7 @@ SpriteComponent::~SpriteComponent()
 
 void SpriteComponent::update()
 {
-    m_frameRec = {0.0f, 0.0f, static_cast<float>(m_texture.width),
+    m_frameRec = {1.0f, 0.0f, static_cast<float>(m_texture.width - 2.0f),
                   static_cast<float>(m_texture.height)};
 }
 
