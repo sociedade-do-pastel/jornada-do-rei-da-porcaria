@@ -33,6 +33,16 @@ public:
                       static_cast<float>(m_texture.height - 2.0f)};
     }
 
+  void setAnimTextures(Texture texture, int qtFrames)
+    {
+        setTexture(texture);
+        m_qtFrames = qtFrames;
+
+        m_frameRec = {1.0f, 1.0f,
+                      static_cast<float>(m_texture.width / qtFrames - 2.0f),
+                      static_cast<float>(m_texture.height - 2.0f)};
+    }
+
     void setFrameSpeed(int speed)
     {
         m_frameSpeed = speed;

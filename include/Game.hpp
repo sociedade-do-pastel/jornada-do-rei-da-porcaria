@@ -9,6 +9,7 @@
 class Actor;
 class SpriteComponent;
 class Player;
+class World;
 
 class Game
 {
@@ -40,8 +41,10 @@ private:
     bool m_updatingActors;
 
 	Player* p{nullptr};
-
+  
     std::vector<Actor*> m_actors;
     std::vector<Actor*> m_pendingActors;
     std::vector<SpriteComponent*> m_sprites;
+
+  std::unique_ptr <World> m_worldp {nullptr};
 };

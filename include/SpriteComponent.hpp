@@ -44,6 +44,11 @@ public:
         m_texture = LoadTexture(texture.c_str());
     }
 
+  virtual void setTexture(Texture& texture)
+  {
+    this->m_texture = texture;
+  }
+
 protected:
     Rectangle m_frameRec;
     Texture2D m_texture;

@@ -1,7 +1,9 @@
 #include "../include/Game.hpp"
+#include <raylib.h>
 
 #include "../include/Actor.hpp"
 #include "../include/Player.hpp"
+#include "../include/World.hpp"
 #include "../include/SpriteComponent.hpp"
 
 Game::Game()
@@ -17,8 +19,12 @@ bool Game::initialize()
     // antialiasing
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(1280, 720, "Jornada do rei da porcaria");
+
+    // allow resizing
+    SetWindowState (FLAG_WINDOW_RESIZABLE);
     SetTargetFPS(60);
 
+    
     loadData();
 
     return IsWindowReady();
@@ -134,7 +140,8 @@ void Game::generateOutput()
 
 void Game::loadData()
 {
-    p = new Player(this);
+    m_worldp = std::make_unique<World>(this, 16, 16);
+    p        = new Player(this);
     p->setPosition({GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f});
 }
 
