@@ -46,8 +46,6 @@ void World::generate_world()
             grid[j][i] = curr_tile;
         }
     }
-
-    SetWindowSize(num_tiles_x * tile_diameter, num_tiles_y * tile_diameter);
 }
 
 World::~World()

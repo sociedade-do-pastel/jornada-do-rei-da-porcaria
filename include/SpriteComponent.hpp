@@ -1,6 +1,7 @@
 #pragma once
 
 #include <raylib.h>
+#include <raymath.h>
 #include <string>
 
 #include "Component.hpp"
@@ -42,19 +43,23 @@ public:
     virtual void setTexture(std::string texture)
     {
         m_texture = LoadTexture(texture.c_str());
+        setTexture(m_texture);
     }
 
-  virtual void setTexture(Texture& texture)
-  {
-    this->m_texture = texture;
-  }
+    virtual void setTexture(Texture& texture)
+    {
+        m_texture = texture;
+
+        m_texWidth  = m_texture.width;
+        m_texHeight = m_texture.height;
+    }
 
 protected:
     Rectangle m_frameRec;
     Texture2D m_texture;
+    int m_texWidth;
+    int m_texHeight;
 
 private:
     int m_drawOrder;
-    int m_texWidth;
-    int m_texHeight;
 };

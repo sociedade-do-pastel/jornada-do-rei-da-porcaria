@@ -18,12 +18,14 @@ SpriteComponent::~SpriteComponent()
 
 void SpriteComponent::update()
 {
-    m_frameRec = {1.0f, 1.0f, static_cast<float>(m_texture.width - 2.0f),
-                  static_cast<float>(m_texture.height - 2.0f)};
+    m_frameRec = {0.0f, 0.0f, static_cast<float>(m_texture.width),
+                  static_cast<float>(m_texture.height)};
 }
 
 void SpriteComponent::draw()
 {
-
-    DrawTextureRec(m_texture, m_frameRec, m_owner->getPosition(), WHITE);
+    DrawTextureRec(m_texture, m_frameRec,
+                   Vector2Subtract(m_owner->getPosition(),
+                                   {m_texWidth / 2.0f, m_texHeight / 2.0f}),
+                   WHITE);
 }

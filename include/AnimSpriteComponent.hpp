@@ -25,22 +25,14 @@ public:
     // setters
     void setAnimTextures(const std::string texture, int qtFrames)
     {
-        setTexture(texture);
-        m_qtFrames = qtFrames;
-
-        m_frameRec = {1.0f, 1.0f,
-                      static_cast<float>(m_texture.width / qtFrames - 2.0f),
-                      static_cast<float>(m_texture.height - 2.0f)};
+		setTexture(texture);
+        setDimensions(qtFrames);
     }
 
-  void setAnimTextures(Texture texture, int qtFrames)
+    void setAnimTextures(Texture texture, int qtFrames)
     {
         setTexture(texture);
-        m_qtFrames = qtFrames;
-
-        m_frameRec = {1.0f, 1.0f,
-                      static_cast<float>(m_texture.width / qtFrames - 2.0f),
-                      static_cast<float>(m_texture.height - 2.0f)};
+        setDimensions(qtFrames);
     }
 
     void setFrameSpeed(int speed)
@@ -51,6 +43,18 @@ public:
     void setFrameSeq(std::vector<int> seq)
     {
         m_frameSeq = seq;
+    }
+
+private:
+    void setDimensions(int qtFrames)
+    {
+        m_qtFrames = qtFrames;
+
+        m_texWidth  = (m_texture.width / qtFrames - 2.0f);
+        m_texHeight = (m_texture.height - 2.0f);
+
+        m_frameRec = {1.0f, 1.0f, static_cast<float>(m_texWidth),
+                      static_cast<float>(m_texHeight)};
     }
 
 private:

@@ -3,8 +3,8 @@
 
 #include "../include/Actor.hpp"
 #include "../include/Player.hpp"
-#include "../include/World.hpp"
 #include "../include/SpriteComponent.hpp"
+#include "../include/World.hpp"
 
 Game::Game()
 {
@@ -18,13 +18,10 @@ bool Game::initialize()
 {
     // antialiasing
     SetConfigFlags(FLAG_MSAA_4X_HINT);
-    InitWindow(1280, 720, "Jornada do rei da porcaria");
+    InitWindow(900, 900, "Jornada do rei da porcaria");
 
-    // allow resizing
-    SetWindowState (FLAG_WINDOW_RESIZABLE);
     SetTargetFPS(60);
 
-    
     loadData();
 
     return IsWindowReady();
@@ -130,10 +127,12 @@ void Game::generateOutput()
 {
     BeginDrawing();
 
-    ClearBackground(WHITE);
+    ClearBackground(BLACK);
 
     for (auto sprite : m_sprites)
         sprite->draw();
+
+    DrawLineV(p->getPosition(), GetMousePosition(), RED);
 
     EndDrawing();
 }

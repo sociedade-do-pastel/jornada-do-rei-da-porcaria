@@ -12,7 +12,7 @@ Tile::Tile(Game* game, Vector2 position, Texture terrain_tex, bool obstacle)
         auto sprite_anim = (new AnimSpriteComponent(this, 10));
         sprite_anim->setAnimTextures(terrain_tex, 2);
         sprite_anim->setFrameSeq({0, 1});
-        sprite_anim->setFrameSpeed(sprite_anim->getAnimFPS() / 2);
+        sprite_anim->setFrameSpeed(1);
         // new CollisionComponent
     }
     else
