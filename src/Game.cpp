@@ -139,7 +139,10 @@ void Game::generateOutput()
 
 void Game::loadData()
 {
-    m_worldp = std::make_unique<World>(this, 16, 16);
+  /* 50, 50 refer to the offset in relation to the top-left corner of our
+     window */
+    m_worldp = new World(this, 16, 16, 50, 50);
+    
     p        = new Player(this);
     p->setPosition({GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f});
 }

@@ -40,11 +40,11 @@ private:
     bool m_isRunning;
     bool m_updatingActors;
 
-	Player* p{nullptr};
-  
+    Player* p{nullptr};
+
     std::vector<Actor*> m_actors;
     std::vector<Actor*> m_pendingActors;
     std::vector<SpriteComponent*> m_sprites;
 
-  std::unique_ptr <World> m_worldp {nullptr};
+    World* m_worldp{nullptr};
 };
