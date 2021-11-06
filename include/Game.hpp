@@ -12,6 +12,7 @@
 class Actor;
 class SpriteComponent;
 class Player;
+class World;
 
 class Game
 {
@@ -52,4 +53,6 @@ private:
     std::vector<Actor*> m_actors;
     std::vector<Actor*> m_pendingActors;
     std::vector<SpriteComponent*> m_sprites;
+
+    World* m_worldp{nullptr};
 };

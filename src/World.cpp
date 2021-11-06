@@ -1,8 +1,10 @@
 #include "../include/World.hpp"
 #include "../include/SpriteComponent.hpp"
 
-World::World(Game* game, unsigned width, unsigned height)
-    : game{game}, num_tiles_x{width}, num_tiles_y{height}, biome{current_theme},
+World::World(Game* game, unsigned width, unsigned height, unsigned top_left_x,
+             unsigned top_left_y)
+    : Actor{game}, num_tiles_x{width}, num_tiles_y{height},
+      top_left_x{top_left_x}, top_left_y{top_left_y}, biome{current_theme},
       grid{num_tiles_y, std::vector<Tile*>{num_tiles_x, nullptr}}
 {
     // for now that's how we roll
@@ -18,8 +20,13 @@ void World::generate_world()
             std::string chosen_texture_name;
             bool obstacle{false};
             /* its position in pixels (top left corner) */
-            float tile_position_x = (float)(i * this->tile_diameter);
-            float tile_position_y = (float)(j * this->tile_diameter);
+            float tile_position_x = (float)(((this->tile_diameter * i)
+                                             + (this->tile_diameter / 2.0f))
+                                            + this->top_left_x);
+
+            float tile_position_y = (float)(((this->tile_diameter * j)
+                                             + (this->tile_diameter / 2.0f))
+                                            + this->top_left_y);
 
             /* place trees on the edges and on the map itself with 5% chance */
             //
@@ -41,7 +48,7 @@ void World::generate_world()
                 chosen_texture_name = biome.get_random_tile_texture_name();
 
             Tile* curr_tile
-                = new Tile(this->game, {tile_position_x, tile_position_y},
+                = new Tile(this->getGame(), {tile_position_x, tile_position_y},
                            chosen_texture_name, obstacle);
 
             grid[j][i] = curr_tile;
