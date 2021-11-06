@@ -12,7 +12,6 @@ SpriteComponent::SpriteComponent(Actor* owner, int drawOrder)
 
 SpriteComponent::~SpriteComponent()
 {
-    UnloadTexture(m_texture);
     m_owner->getGame()->removeSprite(this);
 }
 

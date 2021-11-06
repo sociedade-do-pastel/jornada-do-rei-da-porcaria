@@ -3,13 +3,15 @@
 #include <algorithm>
 #include <memory>
 #include <raylib.h>
+#include <raymath.h>
+#include <string>
+#include <unordered_map>
 #include <vector>
 
 // forward declaration
 class Actor;
 class SpriteComponent;
 class Player;
-class World;
 
 class Game
 {
@@ -27,6 +29,7 @@ public:
     void addSprite(SpriteComponent* sprite);
     void removeSprite(SpriteComponent* sprite);
 
+    Texture& getTexture(std::string name);
     // void addCollision(CollisionComponent* collision);
     // void removeCollision(CollisionComponent* collision);
 
@@ -40,11 +43,13 @@ private:
     bool m_isRunning;
     bool m_updatingActors;
 
-	Player* p{nullptr};
-  
+    Player* p{nullptr};
+
+    Texture m_mouseTarget;
+
+    std::unordered_map<std::string, Texture> m_textures;
+
     std::vector<Actor*> m_actors;
     std::vector<Actor*> m_pendingActors;
     std::vector<SpriteComponent*> m_sprites;
-
-  std::unique_ptr <World> m_worldp {nullptr};
 };

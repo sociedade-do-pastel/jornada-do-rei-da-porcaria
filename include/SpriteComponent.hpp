@@ -4,10 +4,9 @@
 #include <raymath.h>
 #include <string>
 
+#include "Actor.hpp"
 #include "Component.hpp"
-
-// forward declaration
-class Actor;
+#include "Game.hpp"
 
 class SpriteComponent : public Component
 {
@@ -42,13 +41,7 @@ public:
     // setters
     virtual void setTexture(std::string texture)
     {
-        m_texture = LoadTexture(texture.c_str());
-        setTexture(m_texture);
-    }
-
-    virtual void setTexture(Texture& texture)
-    {
-        m_texture = texture;
+        m_texture = m_owner->getGame()->getTexture(texture);
 
         m_texWidth  = m_texture.width;
         m_texHeight = m_texture.height;

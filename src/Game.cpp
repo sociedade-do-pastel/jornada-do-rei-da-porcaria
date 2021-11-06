@@ -1,10 +1,10 @@
 #include "../include/Game.hpp"
+
 #include <raylib.h>
 
 #include "../include/Actor.hpp"
 #include "../include/Player.hpp"
 #include "../include/SpriteComponent.hpp"
-#include "../include/World.hpp"
 
 Game::Game()
 {
@@ -21,6 +21,7 @@ bool Game::initialize()
     InitWindow(900, 900, "Jornada do rei da porcaria");
 
     SetTargetFPS(60);
+    HideCursor();
 
     loadData();
 
@@ -96,7 +97,7 @@ void Game::removeSprite(SpriteComponent* sprite)
 
 void Game::processInput()
 {
-    for (auto& a : m_actors)
+    for (auto a : m_actors)
         a->processInput();
 }
 
@@ -113,14 +114,16 @@ void Game::updateGame()
         m_actors.emplace_back(pending);
     m_pendingActors.clear();
 
-    // delete dead actors
-    auto deleteFunc = [](auto& a) {
-        if (a->getState() == Actor::State::Dead)
-            return true;
-        return false;
-    };
-    m_actors.erase(std::remove_if(m_actors.begin(), m_actors.end(), deleteFunc),
-                   m_actors.end());
+    // Add any dead actors to a temp vector
+    std::vector<Actor*> deadActors;
+    for (auto actor : m_actors) {
+        if (actor->getState() == Actor::State::Dead)
+            deadActors.emplace_back(actor);
+    }
+
+    // Delete dead actors (which removes them from mActors)
+    for (auto actor : deadActors)
+        delete actor;
 }
 
 void Game::generateOutput()
@@ -132,20 +135,44 @@ void Game::generateOutput()
     for (auto sprite : m_sprites)
         sprite->draw();
 
-    DrawLineV(p->getPosition(), GetMousePosition(), RED);
+    // DrawLineV(p->getPosition(), GetMousePosition(), RED);
+
+    DrawTextureV(
+        m_mouseTarget,
+        Vector2Subtract(GetMousePosition(), {m_mouseTarget.width / 2.0f,
+                                             m_mouseTarget.height / 2.0f}),
+        WHITE);
 
     EndDrawing();
 }
 
 void Game::loadData()
 {
-    m_worldp = std::make_unique<World>(this, 16, 16);
     p        = new Player(this);
     p->setPosition({GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f});
+
+    m_mouseTarget = LoadTexture("assets/alvo.png");
 }
 
 void Game::unloadData()
 {
+    UnloadTexture(m_mouseTarget);
+
+	for (auto [key, val] : m_textures)
+		UnloadTexture(val);
+	
     while (!m_actors.empty())
         delete m_actors.back();
+}
+
+Texture& Game::getTexture(std::string name)
+{
+    auto t = m_textures.find(name);
+
+    if (t != m_textures.end())
+        return t->second;
+
+    std::string target = "assets/" + name;
+    m_textures[name]   = LoadTexture(target.c_str());
+    return m_textures[name];
 }

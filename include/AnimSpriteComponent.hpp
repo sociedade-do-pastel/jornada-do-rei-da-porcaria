@@ -25,12 +25,6 @@ public:
     // setters
     void setAnimTextures(const std::string texture, int qtFrames)
     {
-		setTexture(texture);
-        setDimensions(qtFrames);
-    }
-
-    void setAnimTextures(Texture texture, int qtFrames)
-    {
         setTexture(texture);
         setDimensions(qtFrames);
     }
