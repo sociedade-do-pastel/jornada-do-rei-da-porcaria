@@ -5,6 +5,7 @@
 #include "../include/Actor.hpp"
 #include "../include/Player.hpp"
 #include "../include/SpriteComponent.hpp"
+#include "../include/World.hpp"
 
 Game::Game()
 {
@@ -148,7 +149,8 @@ void Game::generateOutput()
 
 void Game::loadData()
 {
-    p        = new Player(this);
+    new World(this, 16, 16);
+    p = new Player(this);
     p->setPosition({GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f});
 
     m_mouseTarget = LoadTexture("assets/alvo.png");
@@ -158,9 +160,9 @@ void Game::unloadData()
 {
     UnloadTexture(m_mouseTarget);
 
-	for (auto [key, val] : m_textures)
-		UnloadTexture(val);
-	
+    for (auto [key, val] : m_textures)
+        UnloadTexture(val);
+
     while (!m_actors.empty())
         delete m_actors.back();
 }

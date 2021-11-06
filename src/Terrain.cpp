@@ -1,6 +1,4 @@
 #include "../include/Terrain.hpp"
-#include <raylib.h>
-#include <string>
 
 Terrain::Terrain(unsigned type) : type_of_terrain{type}
 {
@@ -30,27 +28,22 @@ std::string Terrain::get_filename(unsigned type)
 
 bool Terrain::load_structures(std::string filename_prefix)
 {
-    /* should info such as extension/folder names be here? */
     std::string extension{".png"};
-    std::string folder{"assets/"};
-
     for (int i{0}; i < NUM_GENERIC_TEXTURES; ++i) {
-        ground_textures[i] = LoadTexture(
-            (folder + filename_prefix + std::to_string(i + 1) + extension)
-                .c_str());
+        ground_textures[i]
+            = filename_prefix + std::to_string(i + 1) + extension;
     }
 
-    animated_texture
-        = LoadTexture((folder + filename_prefix + "_anim" + extension).c_str());
+    animated_texture = filename_prefix + "_anim" + extension;
     return true;
 }
 
-Texture Terrain::get_random_tile_texture()
+std::string Terrain::get_random_tile_texture_name()
 {
     return ground_textures[GetRandomValue(0, NUM_GENERIC_TEXTURES - 1)];
 }
 
-Texture Terrain::get_animated_texture()
+std::string Terrain::get_animated_texture_name()
 {
     return animated_texture;
 }

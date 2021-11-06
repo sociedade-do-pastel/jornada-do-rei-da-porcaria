@@ -15,7 +15,7 @@ void World::generate_world()
     for (int j{0}; j < num_tiles_y; ++j) {
         for (int i{0}; i < num_tiles_x; ++i) {
             /* generate a random tile based on our main Terrain type */
-            Texture temp;
+            std::string chosen_texture_name;
             bool obstacle{false};
             /* its position in pixels (top left corner) */
             float tile_position_x = (float)(i * this->tile_diameter);
@@ -34,14 +34,15 @@ void World::generate_world()
                 || ((GetRandomValue(0, 100) <= 10)
                     && tile_position_y != GetScreenHeight() / 2.0f
                     && tile_position_x != GetScreenWidth() / 2.0f)) {
-                temp     = biome.get_animated_texture();
-                obstacle = true; // it's a tree after all
+                chosen_texture_name = biome.get_animated_texture_name();
+                obstacle            = true; // it's a tree after all
             }
             else
-                temp = biome.get_random_tile_texture();
+                chosen_texture_name = biome.get_random_tile_texture_name();
 
-            Tile* curr_tile = new Tile(
-                this->game, {tile_position_x, tile_position_y}, temp, obstacle);
+            Tile* curr_tile
+                = new Tile(this->game, {tile_position_x, tile_position_y},
+                           chosen_texture_name, obstacle);
 
             grid[j][i] = curr_tile;
         }

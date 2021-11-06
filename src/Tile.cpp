@@ -2,7 +2,8 @@
 #include "../include/AnimSpriteComponent.hpp"
 #include "../include/SpriteComponent.hpp"
 
-Tile::Tile(Game* game, Vector2 position, Texture terrain_tex, bool obstacle)
+Tile::Tile(Game* game, Vector2 position, std::string terrain_type,
+           bool obstacle)
     : Actor{game}, m_is_obstacle{obstacle}
 {
     this->setPosition(position);
@@ -10,13 +11,13 @@ Tile::Tile(Game* game, Vector2 position, Texture terrain_tex, bool obstacle)
     // am I a tree?
     if (obstacle) {
         auto sprite_anim = (new AnimSpriteComponent(this, 10));
-        sprite_anim->setAnimTextures(terrain_tex, 2);
+        sprite_anim->setAnimTextures(terrain_type, 2);
         sprite_anim->setFrameSeq({0, 1});
         sprite_anim->setFrameSpeed(1);
         // new CollisionComponent
     }
     else
-        (new SpriteComponent(this, 10))->setTexture(terrain_tex);
+        (new SpriteComponent(this, 10))->setTexture(terrain_type);
 }
 
 Tile::~Tile()
