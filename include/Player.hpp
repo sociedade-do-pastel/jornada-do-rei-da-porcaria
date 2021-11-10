@@ -6,6 +6,7 @@
 class Game;
 class AnimSpriteComponent;
 class InputComponent;
+class ShootComponent;
 
 class Player : public Actor
 {
@@ -32,5 +33,6 @@ private:
     int m_lifes;
 
     AnimSpriteComponent* spt{nullptr};
-	InputComponent* ipc{nullptr};
+    InputComponent* ipc{nullptr};
+	ShootComponent* shc{nullptr};
 };

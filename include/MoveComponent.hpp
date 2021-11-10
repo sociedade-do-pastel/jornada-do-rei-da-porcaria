@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <raymath.h>
 
 #include "Component.hpp"
 

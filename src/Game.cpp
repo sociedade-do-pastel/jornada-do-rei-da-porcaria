@@ -3,6 +3,7 @@
 #include <raylib.h>
 
 #include "../include/Actor.hpp"
+#include "../include/Orc.hpp"
 #include "../include/Player.hpp"
 #include "../include/SpriteComponent.hpp"
 #include "../include/World.hpp"
@@ -154,6 +155,9 @@ void Game::loadData()
     p->setPosition({GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f});
 
     m_mouseTarget = LoadTexture("assets/alvo.png");
+
+    auto a = new Orc(this);
+    a->setPosition({200, 200});
 }
 
 void Game::unloadData()
