@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Actor.hpp"
+#include "AnimSpriteComponent.hpp"
 
 // forward declaration
 class Game;
-class AnimSpriteComponent;
 class InputComponent;
 class ShootComponent;
 
@@ -28,11 +28,22 @@ public:
         return m_lifes;
     }
 
+    Rectangle getColRec() const
+    {
+        Rectangle r;
+        r.width  = m_spt->getTexWidth();
+        r.height = m_spt->getTexHeight();
+        r.x      = getPosition().x - r.width / 2.0f;
+        r.y      = getPosition().y - r.height / 2.0f;
+
+		return r;
+    }
+
 private:
     float m_speed;
     int m_lifes;
 
-    AnimSpriteComponent* spt{nullptr};
-    InputComponent* ipc{nullptr};
-	ShootComponent* shc{nullptr};
+    AnimSpriteComponent* m_spt{nullptr};
+    InputComponent* m_ipc{nullptr};
+    ShootComponent* m_shc{nullptr};
 };

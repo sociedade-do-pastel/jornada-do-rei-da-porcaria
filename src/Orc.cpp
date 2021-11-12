@@ -2,11 +2,11 @@
 
 #include "../include/AnimSpriteComponent.hpp"
 
-Orc::Orc(Game* game) : Actor(game)
+Orc::Orc(Game* game) : Enemy(game)
 {
-	AnimSpriteComponent* spt = new AnimSpriteComponent(this, 99);
-    spt->setAnimTextures("orcson.png", 2);
-	spt->setFrameSeq({0, 1});
+    m_spt = new AnimSpriteComponent(this, 99);
+    m_spt->setAnimTextures("orcson.png", 2);
+	m_spt->setFrameSeq({0, 1});
 	
 	setPosition({10, 10});
 }

@@ -13,6 +13,7 @@ class Actor;
 class SpriteComponent;
 class Player;
 class World;
+class Enemy;
 
 class Game
 {
@@ -30,9 +31,17 @@ public:
     void addSprite(SpriteComponent* sprite);
     void removeSprite(SpriteComponent* sprite);
 
+    void addEnemy(Enemy* enemy);
+    void removeEnemy(Enemy* enemy);
+
     Texture& getTexture(std::string name);
     // void addCollision(CollisionComponent* collision);
     // void removeCollision(CollisionComponent* collision);
+
+    std::vector<Enemy*>& getEnemies()
+    {
+        return m_enemies;
+    }
 
 private:
     void processInput();
@@ -53,6 +62,7 @@ private:
     std::vector<Actor*> m_actors;
     std::vector<Actor*> m_pendingActors;
     std::vector<SpriteComponent*> m_sprites;
+    std::vector<Enemy*> m_enemies;
 
     World* m_worldp{nullptr};
 };

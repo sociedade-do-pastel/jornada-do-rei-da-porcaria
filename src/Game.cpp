@@ -97,6 +97,18 @@ void Game::removeSprite(SpriteComponent* sprite)
 // {
 // }
 
+void Game::addEnemy(Enemy* enemy)
+{
+    m_enemies.push_back(enemy);
+}
+
+void Game::removeEnemy(Enemy* enemy)
+{
+    m_enemies.erase(std::remove_if(m_enemies.begin(), m_enemies.end(),
+                                   [enemy](auto& e) { return e == enemy; }),
+                    m_enemies.end());
+}
+
 void Game::processInput()
 {
     for (auto a : m_actors)
