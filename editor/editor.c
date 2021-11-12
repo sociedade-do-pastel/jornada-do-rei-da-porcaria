@@ -37,9 +37,11 @@ void shift_map (struct Grid* map);
 
 /* miscellaneous */
 struct node* get_node_from_point (struct Grid* map, const Vector2 point);
-void check_button (int button, int increase, struct Grid* map);
+void check_button (int button, int new_value, struct Grid* map);
+void check_mouse_wheel (int* texture_index);
 Vector2 translate_to_origin (Vector2 original_point, Vector2 offset);
-
+void draw_current_selected_texture(Texture* texture_array, Vector2 position,
+                                   int current_texture, int width);
 //------------------------------------------------------------------------------------
 // Constants
 //------------------------------------------------------------------------------------
@@ -58,7 +60,7 @@ int main()
   int screenWidth = 1280;
   int screenHeight = 1024;
   struct Grid map = {0};
-    
+  int texture_index = 0;
   InitWindow(screenWidth, screenHeight, "mapitor");
   /* loading our textures and map */
   Texture** ground_textures = load_textures (ground_textures);
@@ -86,8 +88,9 @@ int main()
     {
       // Update
       //----------------------------------------------------------------------------------
-      check_button (MOUSE_BUTTON_LEFT, 1,  &map);
-      check_button (MOUSE_BUTTON_RIGHT, -1, &map);
+      check_mouse_wheel (&texture_index);
+      check_button (MOUSE_BUTTON_LEFT, texture_index,  &map);
+      check_button (MOUSE_BUTTON_RIGHT, 1, &map);
 
       /* this ListView can assume three indexes (0, 1, 2), those will represent
 	 our terrain types */
@@ -102,7 +105,7 @@ int main()
       
       if (Button003Pressed)
 	save_map (&map);
-      
+
       // Draw
       //----------------------------------------------------------------------------------
       BeginDrawing();
@@ -128,11 +131,22 @@ int main()
 		      map.map_count,
 		      0,
 		      MAP_LIMIT - 1);
+      
+      GuiLabel((Rectangle){ 50, 475, 150, 25 }, "INSTRUCOES:");
+      GuiLabel((Rectangle){ 50, 500, 150, 25 }, "RODINHA: MUDAR TILE");
+      GuiLabel((Rectangle){ 50, 525, 150, 25 }, "MOUSE 1: APLICAR TILE");
+      GuiLabel((Rectangle){ 50, 550, 150, 25 }, "MOUSE 2: APAGAR TILE");
+      GuiLabel((Rectangle){ 50, 600, 150, 25 }, "TILE ATUAL:");
+      
       //----------------------------------------------------------------------------------
 
       // then draw our map
       draw_map (&map, ground_textures, grid_first_x, grid_first_y);
-	    
+      // and the current selected texture
+      draw_current_selected_texture (ground_textures[map.types[map.map_count]],
+				     (Vector2){50, 630},
+				     texture_index,
+				     map.node_diameter);
       EndDrawing();
       //----------------------------------------------------------------------------------
     }
@@ -285,7 +299,7 @@ get_node_from_point (struct Grid* map, const Vector2 point)
 }
 
 void
-check_button (int button, int increase, struct Grid* map)
+check_button (int button, int new_value, struct Grid* map)
 {
   if (IsMouseButtonPressed (button))
     {
@@ -298,13 +312,8 @@ check_button (int button, int increase, struct Grid* map)
 	return ;
       
       unsigned short int* value = &(temp_node->count);
-      
-      if (*value + increase < 0)
-	*value = NUMBER_OF_GRD_TEXTURES - 1;
-      else if (*value + increase >= NUMBER_OF_GRD_TEXTURES)
-	*value = 0;
-      else
-	*value += increase;
+      *value = new_value;
+
     }
 }
 
@@ -328,4 +337,36 @@ Vector2
 translate_to_origin (Vector2 from, Vector2 to)
 {
   return (Vector2){from.x - to.x, from.y -  to.y};
+}
+
+void check_mouse_wheel (int* index)
+{
+  float wheel_direction = GetMouseWheelMove ();
+  int increase_value = 0;
+  int texture_index = *index;
+    
+  if (wheel_direction > 0)
+    increase_value = 1;
+  else if (wheel_direction < 0)
+    increase_value = -1;
+
+  if (texture_index + increase_value >= NUMBER_OF_GRD_TEXTURES)
+    texture_index = 0;
+  else if (texture_index + increase_value < 0)
+    texture_index = NUMBER_OF_GRD_TEXTURES - 1;
+  else
+    texture_index += increase_value;
+
+  *index = texture_index;
+}
+
+void draw_current_selected_texture (Texture* texture_array,
+				    Vector2 position,
+				    int current_texture,
+				    int width)
+{
+  DrawTextureRec (texture_array[current_texture],
+		  (Rectangle){0.0f, 0.0f, width, width},
+		  position,
+		  WHITE);
 }
