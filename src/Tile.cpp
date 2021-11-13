@@ -14,7 +14,7 @@ Tile::Tile(Game* game, Vector2 position, std::string terrain_type,
         sprite_anim->setAnimTextures(terrain_type, 2);
         sprite_anim->setFrameSeq({0, 1});
         sprite_anim->setFrameSpeed(1);
-        // new CollisionComponent
+        ((this->getGame())->getCollisionTiles()).emplace_back(this);
     }
     else
         (new SpriteComponent(this, 10))->setTexture(terrain_type);

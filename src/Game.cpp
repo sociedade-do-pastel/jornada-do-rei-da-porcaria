@@ -6,6 +6,7 @@
 #include "../include/Orc.hpp"
 #include "../include/Player.hpp"
 #include "../include/SpriteComponent.hpp"
+#include "../include/Tile.hpp"
 #include "../include/World.hpp"
 
 Game::Game()

@@ -14,6 +14,7 @@ class SpriteComponent;
 class Player;
 class World;
 class Enemy;
+class Tile;
 
 class Game
 {
@@ -43,6 +44,11 @@ public:
         return m_enemies;
     }
 
+    std::vector<Tile*>& getCollisionTiles()
+    {
+        return this->m_collisionTiles;
+    }
+
 private:
     void processInput();
     void updateGame();
@@ -63,6 +69,6 @@ private:
     std::vector<Actor*> m_pendingActors;
     std::vector<SpriteComponent*> m_sprites;
     std::vector<Enemy*> m_enemies;
-
+    std::vector<Tile*> m_collisionTiles;
     World* m_worldp{nullptr};
 };
