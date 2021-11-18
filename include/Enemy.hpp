@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Actor.hpp"
+#include "SpriteComponent.hpp"
 
 // forward declaration
 class Game;
@@ -24,9 +25,15 @@ public:
         return m_speed;
     }
 
-    virtual Rectangle getColRec() const
+    Rectangle getColRec() const override
     {
-        return {0, 0, 0, 0};
+        Rectangle r;
+        r.width  = m_spc->getTexWidth();
+        r.height = m_spc->getTexHeight();
+        r.x      = getPosition().x - r.width / 2.0f;
+        r.y      = getPosition().y - r.height / 2.0f;
+
+        return r;
     }
 
     // setters
@@ -39,6 +46,9 @@ public:
     {
         m_speed = speed;
     }
+
+protected:
+    SpriteComponent* m_spc{nullptr};
 
 private:
     int m_hp;

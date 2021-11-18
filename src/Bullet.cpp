@@ -4,6 +4,7 @@
 #include "../include/Game.hpp"
 #include "../include/MoveComponent.hpp"
 #include "../include/SpriteComponent.hpp"
+#include "../include/Tile.hpp"
 
 Bullet::Bullet(Game* game) : Actor(game)
 {
@@ -23,10 +24,15 @@ void Bullet::updateActor()
         || getPosition().y > GetScreenHeight() || getPosition().y < 0)
         setState(Actor::State::Dead);
 
-	for (auto& e : getGame()->getEnemies()) {
-		if (CheckCollisionRecs(getColRec(), e->getColRec()))
-			setState(Actor::State::Dead);
-	}
+    for (auto& e : getGame()->getEnemies()) {
+        if (CheckCollisionRecs(getColRec(), e->getColRec()))
+            setState(Actor::State::Dead);
+    }
+
+    for (auto& e : getGame()->getCollisionTiles()) {
+        if (CheckCollisionRecs(getColRec(), e->getColRec()))
+            setState(Actor::State::Dead);
+    }
 }
 
 void Bullet::setForwardDirection(Vector2 target)

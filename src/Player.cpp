@@ -1,16 +1,19 @@
 #include "../include/Player.hpp"
 
+#include <raymath.h>
+
 #include "../include/AnimSpriteComponent.hpp"
 #include "../include/Bullet.hpp"
 #include "../include/Enemy.hpp"
 #include "../include/Game.hpp"
 #include "../include/InputComponent.hpp"
 #include "../include/ShootComponent.hpp"
+#include "../include/Tile.hpp"
 
 Player::Player(Game* game) : Actor(game)
 {
-    m_spt = new AnimSpriteComponent(this);
-    m_spt->setAnimTextures("papaco48.png", 16);
+    m_spc = new AnimSpriteComponent(this);
+    m_spc->setAnimTextures("papaco48.png", 16);
 
     m_ipc = new InputComponent(this);
     m_ipc->setUpKey(KEY_W);
@@ -38,23 +41,37 @@ void Player::updateActor()
 
     if (m_ipc->getHorizontalSpeed() != 0 || m_ipc->getVerticalSpeed() != 0) {
         if (angle > 45 && angle < 135)
-            m_spt->setFrameSeq({4, 5, 6});
+            m_spc->setFrameSeq({4, 5, 6});
         else if (angle >= 135 && angle <= 225)
-            m_spt->setFrameSeq({7, 8, 9});
+            m_spc->setFrameSeq({7, 8, 9});
         else if (angle > 225 && angle < 315)
-            m_spt->setFrameSeq({10, 11, 12});
+            m_spc->setFrameSeq({10, 11, 12});
         else
-            m_spt->setFrameSeq({1, 2, 3});
+            m_spc->setFrameSeq({1, 2, 3});
     }
     else {
         if (angle > 45 && angle < 135)
-            m_spt->setFrameSeq({4});
+            m_spc->setFrameSeq({4});
         else if (angle >= 135 && angle <= 225)
-            m_spt->setFrameSeq({7});
+            m_spc->setFrameSeq({7});
         else if (angle > 225 && angle < 315)
-            m_spt->setFrameSeq({10});
+            m_spc->setFrameSeq({10});
         else
-            m_spt->setFrameSeq({1});
+            m_spc->setFrameSeq({1});
+    }
+
+    for (auto& e : getGame()->getCollisionTiles()) {
+        if (CheckCollisionRecs(getColRec(), e->getColRec())) {
+            auto r = GetCollisionRec(getColRec(), e->getColRec());
+            if (r.width > r.height && getPosition().y < r.y)
+                setPosition(Vector2Subtract(getPosition(), {0, r.height}));
+            else if (r.width > r.height && getPosition().y >= r.y)
+                setPosition(Vector2Add(getPosition(), {0, r.height}));
+            else if (r.height > r.width && getPosition().x < r.x)
+                setPosition(Vector2Subtract(getPosition(), {r.width, 0}));
+            else if (r.height > r.width && getPosition().x >= r.x)
+                setPosition(Vector2Add(getPosition(), {r.width, 0}));
+        }
     }
 
     processKeyboard();

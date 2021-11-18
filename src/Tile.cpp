@@ -11,13 +11,19 @@ Tile::Tile(Game* game, Vector2 position, std::string terrain_type,
     // am I a tree?
     if (obstacle) {
         auto sprite_anim = (new AnimSpriteComponent(this, 10));
+
         sprite_anim->setAnimTextures(terrain_type, 2);
         sprite_anim->setFrameSeq({0, 1});
         sprite_anim->setFrameSpeed(1);
-        ((this->getGame())->getCollisionTiles()).emplace_back(this);
+
+        m_spc = sprite_anim;
+
+        getGame()->getCollisionTiles().push_back(this);
     }
-    else
-        (new SpriteComponent(this, 10))->setTexture(terrain_type);
+    else {
+        m_spc = new SpriteComponent(this, 10);
+        m_spc->setTexture(terrain_type);
+    }
 }
 
 Tile::~Tile()

@@ -4,11 +4,12 @@
 
 Orc::Orc(Game* game) : Enemy(game)
 {
-    m_spt = new AnimSpriteComponent(this, 99);
-    m_spt->setAnimTextures("orcson.png", 2);
-	m_spt->setFrameSeq({0, 1});
-	
-	setPosition({10, 10});
+	AnimSpriteComponent* anim = new AnimSpriteComponent(this, 99);
+    anim->setAnimTextures("orcson.png", 2);
+    anim->setFrameSeq({0, 1});
+	m_spc = anim;
+
+    setPosition({10, 10});
 }
 
 Orc::~Orc()

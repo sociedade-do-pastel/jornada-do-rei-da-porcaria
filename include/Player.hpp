@@ -28,22 +28,22 @@ public:
         return m_lifes;
     }
 
-    Rectangle getColRec() const
+    Rectangle getColRec() const override
     {
         Rectangle r;
-        r.width  = m_spt->getTexWidth();
-        r.height = m_spt->getTexHeight();
+        r.width  = m_spc->getTexWidth() - 12;
+        r.height = m_spc->getTexHeight() - 12;
         r.x      = getPosition().x - r.width / 2.0f;
         r.y      = getPosition().y - r.height / 2.0f;
 
-		return r;
+        return r;
     }
 
 private:
     float m_speed;
     int m_lifes;
 
-    AnimSpriteComponent* m_spt{nullptr};
+    AnimSpriteComponent* m_spc{nullptr};
     InputComponent* m_ipc{nullptr};
     ShootComponent* m_shc{nullptr};
 };

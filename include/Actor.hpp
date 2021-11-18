@@ -64,6 +64,11 @@ public:
         return Vector2{cosf(m_rotation), -sinf(m_rotation)};
     }
 
+	virtual Rectangle getColRec() const
+	{
+		return {0, 0, 0, 0};
+	}
+
     // setters
     void setPosition(const Vector2& pos)
     {
