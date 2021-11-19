@@ -12,6 +12,22 @@
 
 class World : public Actor
 {
+public:
+    World(Game* game, const unsigned int top_left_x = 0,
+          const unsigned int top_right_y = 0);
+    virtual ~World();
+
+    Grid* get_main_grid()
+    {
+        return this->main_grid;
+    }
+
+    void generate_world();
+    bool load_world();
+    void load_actors();
+    void unload_actors();
+    std::string get_texture_name_from_int(unsigned short int number);
+
 private:
     // our titles diameter wont change
     unsigned short tile_diameter{NODE_DIAMETER}; // in px
@@ -27,22 +43,10 @@ private:
     std::string map_filename{"map.jooj"};
 
     // main grid
-    Grid* world;
+    Grid* main_grid;
     bool file_loaded{false};
     unsigned short curr_map{0};
 
     // vector of actors added by our world
     std::vector<Tile*> tiles;
-
-public:
-    World(Game* game, const unsigned int top_left_x = 0,
-          const unsigned int top_right_y = 0);
-    virtual ~World();
-
-    void generate_world();
-    bool load_world();
-    void load_actors();
-    void unload_actors();
-    std::string get_texture_name_from_int(unsigned short int number);
-    // Tile* get_tile_from_point (Vector2 point);
 };

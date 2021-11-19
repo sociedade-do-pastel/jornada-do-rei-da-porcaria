@@ -49,6 +49,11 @@ public:
         return this->m_collisionTiles;
     }
 
+    World* getWorld()
+    {
+        return this->m_worldp;
+    }
+
 private:
     void processInput();
     void updateGame();
