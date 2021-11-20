@@ -32,6 +32,11 @@ public:
         return this->curr_map;
     }
 
+    unsigned short get_tile_diameter()
+    {
+        return this->tile_diameter;
+    }
+  
     void generate_world();
     bool load_world();
     void load_actors();
