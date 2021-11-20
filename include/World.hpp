@@ -22,6 +22,16 @@ public:
         return this->main_grid;
     }
 
+    Vector2 get_top_left()
+    {
+        return Vector2{(float)top_left_x, (float)top_left_y};
+    };
+
+    unsigned short int get_curr_map()
+    {
+        return this->curr_map;
+    }
+
     void generate_world();
     bool load_world();
     void load_actors();

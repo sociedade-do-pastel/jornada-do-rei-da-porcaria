@@ -10,6 +10,8 @@ struct node
 {
   unsigned short int count;
   Vector2 screen_pos;
+  unsigned short int i;
+  unsigned short int j;
 };
 
 struct Grid

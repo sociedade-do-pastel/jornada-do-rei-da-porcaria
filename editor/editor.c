@@ -223,9 +223,11 @@ clear_map (struct Grid* map)
 	    map->world[map->map_count][i][j].count = 0;
 	  else
 	    map->world[map->map_count][i][j].count = 1;
+	        
+	  map->world[map->map_count][i][j].i = i;
+	  map->world[map->map_count][i][j].j = j;
 	}
     }
-      
 }
 
 void
@@ -339,7 +341,8 @@ translate_to_origin (Vector2 from, Vector2 to)
   return (Vector2){from.x - to.x, from.y -  to.y};
 }
 
-void check_mouse_wheel (int* index)
+void
+check_mouse_wheel (int* index)
 {
   float wheel_direction = GetMouseWheelMove ();
   int increase_value = 0;
@@ -360,7 +363,8 @@ void check_mouse_wheel (int* index)
   *index = texture_index;
 }
 
-void draw_current_selected_texture (Texture* texture_array,
+void
+draw_current_selected_texture (Texture* texture_array,
 				    Vector2 position,
 				    int current_texture,
 				    int width)
