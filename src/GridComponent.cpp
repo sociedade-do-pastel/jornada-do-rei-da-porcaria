@@ -116,7 +116,7 @@ NodeWeights* GridComponent::get_owner_node_from_point()
 // TODO: this should be at least a binary search
 NodeWeights* GridComponent::get_node_from_point(Vector2 point)
 {
-    Grid* main_grid     = this->m_owner->getGame()->getWorld()->get_main_grid();
+  Grid* main_grid     = this->m_owner->getGame()->getWorld()->get_main_grid();
     Vector2 grid_origin = this->m_owner->getGame()->getWorld()->get_top_left();
     Vector2 pos         = {point.x - grid_origin.x, point.y - grid_origin.y};
 

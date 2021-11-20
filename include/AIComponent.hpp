@@ -1,5 +1,4 @@
 #pragma once
-#include <raylib.h>
 #include <stack>
 #include "Actor.hpp"
 #include "Component.hpp"
@@ -25,7 +24,11 @@ public:
     }
 
 private:
+    // current target (usually the only player that exists)
     Actor* m_target;
+    // means that our owner is a flying mob
+    bool flying{false};
+    // where our target was last seen
     NodeWeights* m_last_seen{nullptr};
     GridComponent* brother;
     std::stack<NodeWeights*> m_current_path;
