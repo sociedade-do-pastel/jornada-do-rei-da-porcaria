@@ -10,12 +10,17 @@ public:
     virtual ~Component();
 
     virtual void update();
-	virtual void processInput();
+    virtual void processInput();
 
     // getters
     int getUpdateOrder() const
     {
         return m_updateOrder;
+    }
+
+    Actor* getOwner()
+    {
+        return m_owner;
     }
 
 protected:

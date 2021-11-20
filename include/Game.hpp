@@ -54,6 +54,11 @@ public:
         return this->m_worldp;
     }
 
+    Player* getPlayer()
+    {
+        return this->p;
+    }
+
 private:
     void processInput();
     void updateGame();

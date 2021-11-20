@@ -167,12 +167,11 @@ void Game::loadData()
    window */
     m_worldp = new World(this, 50, 50);
     p        = new Player(this);
-    p->setPosition({GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f});
+    p->setPosition({200, 500});
 
     m_mouseTarget = LoadTexture("assets/alvo.png");
 
-    auto a = new Orc(this);
-    a->setPosition({200, 200});
+    new Orc(this);
 }
 
 void Game::unloadData()

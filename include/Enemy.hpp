@@ -1,8 +1,9 @@
 #pragma once
 
+#include "AIComponent.hpp"
 #include "Actor.hpp"
+#include "GridComponent.hpp"
 #include "SpriteComponent.hpp"
-
 // forward declaration
 class Game;
 
@@ -47,10 +48,32 @@ public:
         m_speed = speed;
     }
 
+    void setGrid(GridComponent* grid)
+    {
+        this->m_grid_component = grid;
+    }
+    void setAI(AIComponent* ai)
+    {
+        this->m_ai_component = ai;
+    }
+
+    // getters
+    GridComponent* getGrid()
+    {
+        return m_grid_component;
+    }
+
+    AIComponent* getAI()
+    {
+        return m_ai_component;
+    }
+
 protected:
     SpriteComponent* m_spc{nullptr};
 
 private:
     int m_hp;
     float m_speed;
+    GridComponent* m_grid_component{nullptr};
+    AIComponent* m_ai_component{nullptr};
 };

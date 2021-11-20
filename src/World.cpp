@@ -1,4 +1,5 @@
 #include "../include/World.hpp"
+#include <iostream>
 
 World::World(Game* game, const unsigned top_left_x, const unsigned top_left_y)
     : Actor{game}, top_left_x{top_left_x}, top_left_y{top_left_y}
@@ -32,9 +33,12 @@ void World::generate_world()
                     && GetRandomValue(0, 100) > 10)
                     value = GetRandomValue(1, NUMBER_OF_GRD_TEXTURES - 1);
 
-                main_grid->world[total_maps][i][j]
-                    = (node){value, (float)(i * main_grid->node_diameter),
-                             (float)(j * main_grid->node_diameter)};
+                node* temp       = &(main_grid->world[total_maps][i][j]);
+                temp->count      = value;
+                temp->i          = i;
+                temp->j          = j;
+                temp->screen_pos = {(float)(j * main_grid->node_diameter),
+                                    (float)(i * main_grid->node_diameter)};
             }
         }
         this->main_grid->types[total_maps] = GetRandomValue(0, 2);
@@ -58,7 +62,7 @@ void World::load_actors()
 {
     for (int i{0}; i < main_grid->number_of_nodes; ++i) {
         for (int j{0}; j < main_grid->number_of_nodes; ++j) {
-            node* curr_node       = &(main_grid->world[this->curr_map][j][i]);
+            node* curr_node       = &(main_grid->world[this->curr_map][i][j]);
             Vector2 curr_node_pos = curr_node->screen_pos;
             bool obstacle         = false;
             /* now we add in the offset and center our node */

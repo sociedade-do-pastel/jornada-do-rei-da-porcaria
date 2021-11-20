@@ -2,6 +2,7 @@
 
 #include "AnimSpriteComponent.hpp"
 #include "Enemy.hpp"
+#include "MoveComponent.hpp"
 
 // forward declaration
 class Game;
@@ -16,4 +17,5 @@ public:
     void processKeyboard();
 
 private:
+    MoveComponent* move_component;
 };

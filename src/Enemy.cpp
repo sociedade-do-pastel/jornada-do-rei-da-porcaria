@@ -1,15 +1,14 @@
 #include "../include/Enemy.hpp"
-
 #include "../include/Game.hpp"
 
 Enemy::Enemy(Game* game) : Actor(game)
 {
-	game->addEnemy(this);
+    game->addEnemy(this);
 }
 
 Enemy::~Enemy()
 {
-	getGame()->removeEnemy(this);
+    getGame()->removeEnemy(this);
 }
 
 void Enemy::updateActor()
