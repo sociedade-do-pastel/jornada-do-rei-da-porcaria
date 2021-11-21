@@ -1,6 +1,6 @@
 #include "../include/AIComponent.hpp"
-#include "../include/Enemy.hpp"
 #include <algorithm>
+#include "../include/Enemy.hpp"
 
 AIComponent::AIComponent(Actor* owner, GridComponent* brother)
     : Component{owner}, brother{brother}
@@ -9,7 +9,7 @@ AIComponent::AIComponent(Actor* owner, GridComponent* brother)
 
 // A* algorithm for pathfinding, it tries to browse through the ``open'' vector
 // and searches for the lowest F_cost (linear time)
-// TODO: change this so it uses a heap
+// DONE: change this so it uses a heap
 // TODO2: make it so our flying enemies don't care about the trees
 void AIComponent::search_for_path()
 {
@@ -19,21 +19,31 @@ void AIComponent::search_for_path()
 
     std::vector<NodeWeights*> open;
     std::vector<NodeWeights*> closed;
+
+    // must return true if the second has better priority than the second
+    auto node_comparison
+        = [](const NodeWeights* first, const NodeWeights* second) {
+              const auto& first_f_cost{first->getF_cost()};
+              const auto& second_f_cost{second->getF_cost()};
+              if ((second_f_cost < first_f_cost)
+                  || (first_f_cost == second_f_cost
+                      && second->h_cost < first->h_cost))
+                  return true;
+              return false;
+          };
+
     open.push_back(s_node);
+    // first we build our heap
+    std::make_heap(open.begin(), open.end(), node_comparison);
 
     while (!open.empty()) {
-        NodeWeights* current{open.at(0)};
-        for (std::vector<NodeWeights*>::iterator it = open.begin();
-             it != open.end(); ++it) {
-            const auto& c_f_cost{current->getF_cost()};
-            const auto& o_f_cost{(*it)->getF_cost()};
-            if (o_f_cost < c_f_cost
-                || (o_f_cost == c_f_cost && (*it)->h_cost < current->h_cost)) {
-                current = (*it);
-            }
-        }
+        // then we get the node with the lowest f_cost (or h_cost)
+        NodeWeights* current{open.front()};
+	// remove it from the heap
+        std::pop_heap(open.begin(), open.end(), node_comparison);
+        open.pop_back();
 
-        open.erase(std::remove(open.begin(), open.end(), current));
+	// and push it into the closed list
         closed.push_back(current);
 
         if (current == e_node) {
@@ -49,8 +59,8 @@ void AIComponent::search_for_path()
                        != closed.end())
                 continue;
 
-	    // rather than using the manhattan distance, I prefer to calculate
-	    // our h_cost by using the euclidean formula for it sqrt(x*x + y*y)
+            // rather than using the manhattan distance, I prefer to calculate
+            // our h_cost by using the euclidean formula for it sqrt(x*x + y*y)
             unsigned int new_cost
                 = current->g_cost + brother->euclidean_distance(current, neigh);
 
@@ -61,8 +71,10 @@ void AIComponent::search_for_path()
                 neigh->g_cost = new_cost;
                 neigh->h_cost = brother->euclidean_distance(neigh, e_node);
                 neigh->parent = current;
-                if (neighit == open.end())
+                if (neighit == open.end()) {
                     open.push_back(neigh);
+                    std::push_heap(open.begin(), open.end(), node_comparison);
+                }
             }
         }
     }
