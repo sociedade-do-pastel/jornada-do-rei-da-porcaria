@@ -1,4 +1,7 @@
 #include "../include/World.hpp"
+#include "../include/SpawnComponent.hpp"
+#include "../include/Orc.hpp"
+#include "../include/Moth.hpp"
 #include <iostream>
 
 World::World(Game* game, const unsigned top_left_x, const unsigned top_left_y)
@@ -78,6 +81,9 @@ void World::load_actors()
                 get_texture_name_from_int(curr_node->count), obstacle));
         }
     }
+    
+    new SpawnComponent<Orc>(this->tiles[40], 1);
+    new SpawnComponent<Moth>(this->tiles[100], 1);
 }
 
 void World::unload_actors()

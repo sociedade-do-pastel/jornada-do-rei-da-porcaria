@@ -23,6 +23,11 @@ public:
         return m_current_path;
     }
 
+    void setFlying(bool flying)
+    {
+      this->flying = flying;
+    }
+
 private:
     // current target (usually the only player that exists)
     Actor* m_target;
