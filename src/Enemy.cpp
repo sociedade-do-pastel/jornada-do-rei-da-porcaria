@@ -13,4 +13,6 @@ Enemy::~Enemy()
 
 void Enemy::updateActor()
 {
+	if (getHP() == 0)
+		setState(Actor::State::Dead);
 }

@@ -25,8 +25,10 @@ void Bullet::updateActor()
         setState(Actor::State::Dead);
 
     for (auto& e : getGame()->getEnemies()) {
-        if (CheckCollisionRecs(getColRec(), e->getColRec()))
+        if (CheckCollisionRecs(getColRec(), e->getColRec())) {
             setState(Actor::State::Dead);
+			e->setHP(e->getHP() - 1);
+		}
     }
 
     for (auto& e : getGame()->getCollisionTiles()) {

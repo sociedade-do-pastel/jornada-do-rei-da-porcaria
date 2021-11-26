@@ -24,6 +24,8 @@ Moth::Moth(Game* game) : Enemy(game)
 
     move_component = new MoveComponent(this);
     this->setSpeed(100.0);
+
+	setHP(2);
 }
 
 Moth::~Moth()
@@ -33,7 +35,9 @@ Moth::~Moth()
 // TODO: maybe make this following behaviour a component
 void Moth::updateActor()
 {
-  // if we don't have a path, just stay in place
+	Enemy::updateActor();
+	
+    // if we don't have a path, just stay in place
     if (this->getAI()->getCurrentPath().empty()) {
         move_component->setHorizontalSpeed(0);
         move_component->setVerticalSpeed(0);
@@ -45,7 +49,6 @@ void Moth::updateActor()
     Vector2 curr_targ{
         this->getGrid()->get_translated(this->getAI()->getCurrentPath().top())};
 
-
     float radius = this->getGame()->getWorld()->get_tile_diameter() / 2.0f;
     curr_targ.x += radius;
     curr_targ.y += radius;
@@ -53,13 +56,12 @@ void Moth::updateActor()
     // get our current position and calculate the (euclidean) distance between
     // we and our target
     Vector2 orc_pos = this->getPosition();
-    float distance = Vector2Distance(orc_pos, curr_targ);
+    float distance  = Vector2Distance(orc_pos, curr_targ);
 
-    if (distance >= 0.0 && distance < 1.0)
-      {
-	this->getAI()->getCurrentPath().pop();
+    if (distance >= 0.0 && distance < 1.0) {
+        this->getAI()->getCurrentPath().pop();
         return;
-      }
+    }
 
     float delta_x = curr_targ.x - orc_pos.x;
     float delta_y = curr_targ.y - orc_pos.y;
