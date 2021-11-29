@@ -15,6 +15,7 @@ class Player;
 class World;
 class Enemy;
 class Tile;
+class TimeBar;
 
 class Game
 {
@@ -56,7 +57,7 @@ public:
 
     Player* getPlayer()
     {
-        return this->p;
+        return this->m_player;
     }
 
 private:
@@ -69,7 +70,7 @@ private:
     bool m_isRunning;
     bool m_updatingActors;
 
-    Player* p{nullptr};
+    Player* m_player{nullptr};
 
     Texture m_mouseTarget;
 
@@ -80,5 +81,7 @@ private:
     std::vector<SpriteComponent*> m_sprites;
     std::vector<Enemy*> m_enemies;
     std::vector<Tile*> m_collisionTiles;
+	
     World* m_worldp{nullptr};
+	TimeBar* m_timeBar{nullptr};
 };
