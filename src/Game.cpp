@@ -7,6 +7,7 @@
 #include "../include/Player.hpp"
 #include "../include/SpriteComponent.hpp"
 #include "../include/Tile.hpp"
+#include "../include/TimeBar.hpp"
 #include "../include/World.hpp"
 
 Game::Game()
@@ -158,6 +159,8 @@ void Game::generateOutput()
                                              m_mouseTarget.height / 2.0f}),
         WHITE);
 
+    m_timeBar->drawBar();
+	
     EndDrawing();
 }
 
@@ -165,11 +168,15 @@ void Game::loadData()
 {
     /* 50, 50 refer to the offset in relation to the top-left corner of our
    window */
-    m_worldp = new World(this, 50, 50);
-    p        = new Player(this);
-    p->setPosition({200, 500});
+    m_worldp  = new World(this, 50, 50);
+    m_player  = new Player(this);
+    m_timeBar = new TimeBar(this, 60);
+
+    m_player->setPosition({200, 500});
 
     m_mouseTarget = LoadTexture("assets/alvo.png");
+
+    m_timeBar->setPosition({m_worldp->get_top_left().x, 20});
 
     new Orc(this);
 }
