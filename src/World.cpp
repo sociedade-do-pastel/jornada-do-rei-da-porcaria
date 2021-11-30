@@ -94,9 +94,6 @@ void World::load_actors()
                 place_spawn_tile(curr_tile);
         }
     }
-
-    new SpawnComponent<Orc>(this->tiles[40], 1);
-    new SpawnComponent<Moth>(this->tiles[100], 1);
 }
 
 void World::unload_actors()
@@ -117,4 +114,5 @@ std::string World::get_texture_name_from_int(unsigned short int number)
 void World::place_spawn_tile(Tile* spawn_tile)
 {
     (this->getGame()->getSpawnTiles()).emplace_back(spawn_tile);
+	new SpawnComponent<Moth>(spawn_tile, 180);
 }

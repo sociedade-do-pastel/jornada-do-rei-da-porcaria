@@ -3,9 +3,9 @@
 #include "../include/Enemy.hpp"
 #include "../include/Game.hpp"
 #include "../include/MoveComponent.hpp"
+#include "../include/SoundComponent.hpp"
 #include "../include/SpriteComponent.hpp"
 #include "../include/Tile.hpp"
-#include "../include/SoundComponent.hpp"
 
 Bullet::Bullet(Game* game) : Actor(game)
 {
@@ -30,11 +30,16 @@ void Bullet::updateActor()
     for (auto& e : getGame()->getEnemies()) {
         if (CheckCollisionRecs(getColRec(), e->getColRec())) {
             setState(Actor::State::Dead);
-			e->setHP(e->getHP() - 1);
-		}
+            e->setHP(e->getHP() - 1);
+        }
     }
 
     for (auto& e : getGame()->getCollisionTiles()) {
+        if (CheckCollisionRecs(getColRec(), e->getColRec()))
+            setState(Actor::State::Dead);
+    }
+	
+    for (auto& e : getGame()->getSpawnTiles()) {
         if (CheckCollisionRecs(getColRec(), e->getColRec()))
             setState(Actor::State::Dead);
     }

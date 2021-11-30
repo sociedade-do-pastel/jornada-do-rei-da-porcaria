@@ -77,11 +77,25 @@ void Player::updateActor()
         }
     }
 
+    for (auto& e : getGame()->getSpawnTiles()) {
+        if (CheckCollisionRecs(getColRec(), e->getColRec())) {
+            auto r = GetCollisionRec(getColRec(), e->getColRec());
+            if (r.width > r.height && getPosition().y < r.y)
+                setPosition(Vector2Subtract(getPosition(), {0, r.height}));
+            else if (r.width > r.height && getPosition().y >= r.y)
+                setPosition(Vector2Add(getPosition(), {0, r.height}));
+            else if (r.height > r.width && getPosition().x < r.x)
+                setPosition(Vector2Subtract(getPosition(), {r.width, 0}));
+            else if (r.height > r.width && getPosition().x >= r.x)
+                setPosition(Vector2Add(getPosition(), {r.width, 0}));
+        }
+    }
+
     for (auto& e : getGame()->getEnemies()) {
         if (CheckCollisionRecs(getColRec(), e->getColRec())) {
             m_hp -= 1;
 
-			getGame()->activateDamageInvinsibility();
+            getGame()->activateDamageInvinsibility();
             e->setState(Actor::State::Dead);
         }
     }

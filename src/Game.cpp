@@ -182,7 +182,7 @@ void Game::loadData()
     m_timeBar = new TimeBar(this, 180);
     m_lifeHUD = new LifeHUD(this);
 
-    m_player->setPosition({200, 500});
+    m_player->setPosition({GetScreenWidth() / 2.0f, GetScreenWidth() / 2.0f});
 
     m_mouseTarget = LoadTexture("assets/alvo.png");
 
@@ -221,6 +221,9 @@ void Game::activateDamageInvinsibility()
     for (auto& f : getEnemies())
         f->setState(Actor::State::Paused);
 
+	for (auto& f : getSpawnTiles())
+        f->setState(Actor::State::Paused);
+
     m_timeBar->setState(Actor::State::Paused);
 
     m_invincibilityTime = 180;
@@ -231,5 +234,8 @@ void Game::deactivateDamageInvinsibility()
     for (auto& f : getEnemies())
         f->setState(Actor::State::Active);
 
+	for (auto& f : getSpawnTiles())
+        f->setState(Actor::State::Active);
+	
     m_timeBar->setState(Actor::State::Active);
 }
