@@ -1,8 +1,11 @@
 #include "../include/TimeBar.hpp"
 
+#include "../include/Game.hpp"
+
 TimeBar::TimeBar(Game* game, float duration)
     : Actor(game), m_duration(duration * 60), m_timePassed(0)
 {
+    m_texture = getGame()->getTexture("relojooj.png");
 }
 
 TimeBar::~TimeBar()
@@ -11,7 +14,8 @@ TimeBar::~TimeBar()
 
 void TimeBar::updateActor()
 {
-    ++m_timePassed;
+    if (getState() != Actor::State::Paused)
+        ++m_timePassed;
 }
 
 void TimeBar::drawBar()
@@ -26,6 +30,7 @@ void TimeBar::drawBar()
     else
         c = RED;
 
-    DrawRectangle(getPosition().x, getPosition().y, 768 - 768 * percentage, 20,
-                  c);
+    DrawTexture(m_texture, getPosition().x, getPosition().y - 10, WHITE);
+    DrawRectangle(getPosition().x + 40, getPosition().y, 728 - 728 * percentage,
+                  20, c);
 }

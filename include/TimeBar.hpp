@@ -26,5 +26,7 @@ public:
 private:
 	float m_duration;
 	float m_timePassed;
+
+	Texture2D m_texture;
 };
 
