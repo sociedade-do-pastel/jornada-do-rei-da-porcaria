@@ -21,7 +21,7 @@ Orc::Orc(Game* game) : Enemy(game)
     move_component = new MoveComponent(this);
     this->setSpeed(100.0);
 
-	setWeight(80);
+	setWeight(200);
     setHP(3);
 }
 

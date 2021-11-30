@@ -178,6 +178,12 @@ void Game::generateOutput()
     m_timeBar->drawBar();
     m_lifeHUD->drawHP(m_player->getHP());
 
+    if (m_gameIsPaused) {
+        auto off = MeasureText("Game is paused", 50);
+        DrawText("Game is paused", GetScreenWidth() / 2.0f - off / 2.0f,
+                 GetScreenHeight() / 2.0f, 50, WHITE);
+    }
+
     if (m_endScreen != nullptr)
         m_endScreen->drawEnd();
 
