@@ -45,6 +45,8 @@ public:
         m_hp = hp;
     }
 
+	void setEndFrame(int i);
+
 private:
     float m_speed;
     int m_hp;

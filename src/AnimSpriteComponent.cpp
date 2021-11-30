@@ -9,6 +9,14 @@ AnimSpriteComponent::~AnimSpriteComponent()
 {
 }
 
+void AnimSpriteComponent::changeNow()
+{
+    m_currentFrame = m_frameSeq[0];
+    m_frameRec.x
+        = static_cast<float>(m_currentFrame * m_texture.width / m_qtFrames + 1);
+    m_frameRec.width = m_texture.width / m_qtFrames - 2.0f;
+}
+
 void AnimSpriteComponent::update()
 {
     ++m_frameCounter;

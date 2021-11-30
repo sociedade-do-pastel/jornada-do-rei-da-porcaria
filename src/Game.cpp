@@ -150,7 +150,7 @@ void Game::updateGame()
     for (auto actor : deadActors)
         delete actor;
 
-    if (m_invincibilityTime != 0) {
+    if (m_invincibilityTime != 0 && !m_gameIsPaused) {
         --m_invincibilityTime;
         if (m_invincibilityTime == 0)
             deactivateDamageInvinsibility();
@@ -177,7 +177,7 @@ void Game::generateOutput()
     m_timeBar->drawBar();
     m_lifeHUD->drawHP(m_player->getHP());
 
-    if (m_gameIsPaused) {
+    if (m_gameIsPaused && m_isRunning) {
         auto off = MeasureText("Game is paused", 50);
         DrawText("Game is paused", GetScreenWidth() / 2.0f - off / 2.0f,
                  GetScreenHeight() / 2.0f, 50, WHITE);

@@ -16,8 +16,10 @@ public:
     EndScreen(Game* game, Outcome out);
     virtual ~EndScreen();
 
+	void updateActor() override;
 	void drawEnd();
 
 private:
 	std::string m_endText;
+	int m_offset{0};
 };

@@ -45,6 +45,9 @@ void Player::updateActor()
 {
     Actor::updateActor();
 
+	if (m_hp == 0)
+		return;
+	
     float angle = Vector2Angle(getPosition(), GetMousePosition());
 
     if (m_ipc->getHorizontalSpeed() != 0 || m_ipc->getVerticalSpeed() != 0) {
@@ -100,9 +103,11 @@ void Player::updateActor()
         if (CheckCollisionRecs(getColRec(), e->getColRec())) {
             m_hp -= 1;
 
-            getGame()->activateDamageInvinsibility();
-            getGame()->getSoundManager()->add_sound("zawarudo.ogg");
-            e->setState(Actor::State::Dead);
+            if (m_hp != 0) {
+                getGame()->activateDamageInvinsibility();
+                getGame()->getSoundManager()->add_sound("zawarudo.ogg");
+                e->setState(Actor::State::Dead);
+            }
         }
     }
 
@@ -116,4 +121,10 @@ void Player::processKeyboard()
 {
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
         m_shc->shoot(GetMousePosition());
+}
+
+void Player::setEndFrame(int i)
+{
+    m_spc->setFrameSeq({i});
+	m_spc->changeNow();
 }

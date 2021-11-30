@@ -15,6 +15,7 @@ public:
     virtual ~AnimSpriteComponent();
 
     void update() override;
+	void changeNow();
 
     // getters
     int getAnimFPS() const
