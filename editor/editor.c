@@ -222,7 +222,7 @@ clear_map (struct Grid* map)
 	      || j == map->number_of_nodes - 1)
 	    map->world[map->map_count][i][j].count = 0;
 	  else
-	    map->world[map->map_count][i][j].count = 1;
+	    map->world[map->map_count][i][j].count = 4;
 	        
 	  map->world[map->map_count][i][j].i = i;
 	  map->world[map->map_count][i][j].j = j;
