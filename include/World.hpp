@@ -7,6 +7,7 @@
 #include <raylib.h>
 #include <stdio.h>
 
+#include <array>
 #include <string>
 #include <vector>
 
@@ -36,11 +37,12 @@ public:
     {
         return this->tile_diameter;
     }
-  
+
     void generate_world();
     bool load_world();
     void load_actors();
     void unload_actors();
+    void place_spawn_tile(Tile* spawn_tile);
     std::string get_texture_name_from_int(unsigned short int number);
 
 private:
@@ -64,4 +66,7 @@ private:
 
     // vector of actors added by our world
     std::vector<Tile*> tiles;
+
+    // Vector2 of hardcoded i and j indexes for our spawn points
+    std::array<Vector2, 12> spawn_points;
 };
