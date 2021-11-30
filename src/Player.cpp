@@ -10,6 +10,7 @@
 #include "../include/InputComponent.hpp"
 #include "../include/ShootComponent.hpp"
 #include "../include/Tile.hpp"
+#include "../include/EndScreen.hpp"
 
 Player::Player(Game* game) : Actor(game)
 {
@@ -101,7 +102,7 @@ void Player::updateActor()
     }
 
     if (getHP() <= 0)
-		getGame()->setRunning(false);
+		new EndScreen(getGame(), EndScreen::Outcome::Defeat);
 
     processKeyboard();
 }

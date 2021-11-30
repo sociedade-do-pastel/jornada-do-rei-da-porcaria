@@ -12,8 +12,6 @@ Orc::Orc(Game* game) : Enemy(game)
     anim->setFrameSeq({0, 1});
     m_spc = anim;
 
-    setPosition({700, 700});
-
     auto grd_c = (new GridComponent(this));
     this->setGrid(grd_c);
     auto ai_c = (new AIComponent(this, grd_c));

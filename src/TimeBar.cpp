@@ -1,5 +1,6 @@
 #include "../include/TimeBar.hpp"
 
+#include "../include/EndScreen.hpp"
 #include "../include/Game.hpp"
 
 TimeBar::TimeBar(Game* game, float duration)
@@ -17,8 +18,8 @@ void TimeBar::updateActor()
     if (getState() != Actor::State::Paused)
         ++m_timePassed;
 
-	if (m_timePassed >= m_duration)
-		getGame()->setRunning(false);
+    if (m_timePassed >= m_duration)
+        new EndScreen(getGame(), EndScreen::Outcome::Victory);
 }
 
 void TimeBar::drawBar()

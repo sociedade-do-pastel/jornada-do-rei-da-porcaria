@@ -18,6 +18,7 @@ class Tile;
 class TimeBar;
 class LifeHUD;
 class SoundManager;
+class EndScreen;
 
 class Game
 {
@@ -85,6 +86,11 @@ public:
 		m_isRunning = b;
 	}
 
+	void setEndScreen(EndScreen* e)
+	{
+		m_endScreen = e;
+	}
+
 private:
     void processInput();
     void updateGame();
@@ -115,4 +121,5 @@ private:
     TimeBar* m_timeBar{nullptr};
     LifeHUD* m_lifeHUD{nullptr};
     SoundManager* m_smanager{nullptr};
+	EndScreen* m_endScreen{nullptr};
 };

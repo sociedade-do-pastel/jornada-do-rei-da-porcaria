@@ -16,7 +16,7 @@ public:
     SpawnComponent(Actor* owner, int levelTime)
         : Component{owner}, m_timePassed{0}
     {
-        for (int i{0}; i < GetRandomValue(5, 20); ++i)
+        for (int i{0}; i < GetRandomValue(2, 8); ++i)
             m_spawnTimes.push_back(GetRandomValue(0, levelTime));
 
         std::sort(m_spawnTimes.begin(), m_spawnTimes.end());

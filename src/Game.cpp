@@ -3,6 +3,7 @@
 #include <raylib.h>
 
 #include "../include/Actor.hpp"
+#include "../include/EndScreen.hpp"
 #include "../include/LifeHUD.hpp"
 #include "../include/Orc.hpp"
 #include "../include/Player.hpp"
@@ -170,13 +171,16 @@ void Game::generateOutput()
     m_timeBar->drawBar();
     m_lifeHUD->drawHP(m_player->getHP());
 
+	if (m_endScreen != nullptr)
+		m_endScreen->drawEnd();
+
     EndDrawing();
 }
 
 void Game::loadData()
 {
-    m_isRunning = true;
-	m_runningTime = 180;
+    m_isRunning   = true;
+    m_runningTime = 180;
 
     /* 50, 50 refer to the offset in relation to the top-left corner of our
    window */
