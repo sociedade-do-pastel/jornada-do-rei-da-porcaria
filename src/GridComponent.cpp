@@ -34,14 +34,23 @@ std::vector<NodeWeights*> GridComponent::get_neighbouring_nodes(
 void GridComponent::generate_neighbours_4d(
     std::vector<NodeWeights*>& neighbours, int i, int j)
 {
-    // push back the one on the right
-    neighbours.push_back(&(m_actors_grid[i][j + 1]));
-    // the one on the left
-    neighbours.push_back(&(m_actors_grid[i][j - 1]));
-    // the one at the top
-    neighbours.push_back(&(m_actors_grid[i - 1][j]));
-    // the one at the bottom
-    neighbours.push_back(&(m_actors_grid[i + 1][j]));
+
+    // first off, try to add in the neighboring nodes on the right and on the
+    // left
+    for (int j_dash{j - 1}; j_dash <= j + 1; ++j_dash) {
+        if (j_dash < 0 || j_dash > NUMBER_OF_NODES_AXIS - 1
+	    || i < 0 || i > NUMBER_OF_NODES_AXIS - 1)
+            continue;
+        neighbours.push_back(&(m_actors_grid[i][j_dash]));
+    }
+
+    // then we try to add in the top and bottom nodes
+    for (int i_dash{i - 1}; i_dash <= i + 1; ++i_dash) {
+        if (i_dash < 0 || i_dash > NUMBER_OF_NODES_AXIS - 1
+	    || j < 0 || j > NUMBER_OF_NODES_AXIS - 1)
+            continue;
+        neighbours.push_back(&(m_actors_grid[i_dash][j]));
+    }
 }
 
 // just like the above, but start counting from the top left
@@ -116,7 +125,7 @@ NodeWeights* GridComponent::get_owner_node_from_point()
 // TODO: this should be at least a binary search
 NodeWeights* GridComponent::get_node_from_point(Vector2 point)
 {
-  Grid* main_grid     = this->m_owner->getGame()->getWorld()->get_main_grid();
+    Grid* main_grid     = this->m_owner->getGame()->getWorld()->get_main_grid();
     Vector2 grid_origin = this->m_owner->getGame()->getWorld()->get_top_left();
     Vector2 pos         = {point.x - grid_origin.x, point.y - grid_origin.y};
 
