@@ -26,6 +26,7 @@ bool Game::initialize()
     // antialiasing
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(1000, 900, "Jornada do rei da porcaria");
+	SetWindowIcon(LoadImage("assets/cabecao.png"));
 
     SetTargetFPS(60);
     HideCursor();

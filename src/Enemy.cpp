@@ -13,6 +13,14 @@ Enemy::~Enemy()
 
 void Enemy::updateActor()
 {
-	if (getHP() <= 0)
-		setState(Actor::State::Dead);
+    if (m_inKnockback && m_knockbackTime > 0) {
+        --m_knockbackTime;
+        if (m_knockbackTime == 0) {
+            m_inKnockback = false;
+            setSpeed(100);
+        }
+    }
+
+    if (getHP() <= 0)
+        setState(Actor::State::Dead);
 }

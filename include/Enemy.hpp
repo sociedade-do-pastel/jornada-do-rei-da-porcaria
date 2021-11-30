@@ -52,9 +52,22 @@ public:
     {
         this->m_grid_component = grid;
     }
+
     void setAI(AIComponent* ai)
     {
         this->m_ai_component = ai;
+    }
+
+    void setKnockback(int time)
+    {
+        setSpeed(-1000 + getWeight() * 3);
+        m_knockbackTime = time;
+        m_inKnockback   = true;
+    }
+
+    void setWeight(float w)
+    {
+        m_weight = w;
     }
 
     // getters
@@ -68,12 +81,20 @@ public:
         return m_ai_component;
     }
 
+    float getWeight() const
+    {
+        return m_weight;
+    }
+
 protected:
     SpriteComponent* m_spc{nullptr};
 
 private:
     int m_hp;
+    int m_knockbackTime;
+    bool m_inKnockback{false};
     float m_speed;
+    float m_weight;
     GridComponent* m_grid_component{nullptr};
     AIComponent* m_ai_component{nullptr};
 };

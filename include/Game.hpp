@@ -43,8 +43,8 @@ public:
     // void addCollision(CollisionComponent* collision);
     // void removeCollision(CollisionComponent* collision);
 
-	void activateDamageInvinsibility();
-	void deactivateDamageInvinsibility();
+    void activateDamageInvinsibility();
+    void deactivateDamageInvinsibility();
 
     std::vector<Enemy*>& getEnemies()
     {
@@ -76,20 +76,20 @@ public:
         return this->m_spawnTiles;
     }
 
-	int getRunningTime() const
-	{
-		return m_runningTime;
-	}
+    int getRunningTime() const
+    {
+        return m_runningTime;
+    }
 
-	void setRunning(bool b)
-	{
-		m_isRunning = b;
-	}
+    void setRunning(bool b)
+    {
+        m_isRunning = b;
+    }
 
-	void setEndScreen(EndScreen* e)
-	{
-		m_endScreen = e;
-	}
+    void setEndScreen(EndScreen* e)
+    {
+        m_endScreen = e;
+    }
 
 private:
     void processInput();
@@ -100,10 +100,10 @@ private:
 
     bool m_isRunning;
     bool m_updatingActors;
-	bool m_gameIsPaused;
-	
-	int m_invincibilityTime{0};
-	int m_runningTime;
+    bool m_gameIsPaused;
+
+    int m_invincibilityTime{0};
+    int m_runningTime;
 
     Player* m_player{nullptr};
 
@@ -121,5 +121,5 @@ private:
     TimeBar* m_timeBar{nullptr};
     LifeHUD* m_lifeHUD{nullptr};
     SoundManager* m_smanager{nullptr};
-	EndScreen* m_endScreen{nullptr};
+    EndScreen* m_endScreen{nullptr};
 };

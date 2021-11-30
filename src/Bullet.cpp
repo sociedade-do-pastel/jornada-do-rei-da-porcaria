@@ -31,6 +31,7 @@ void Bullet::updateActor()
         if (CheckCollisionRecs(getColRec(), e->getColRec())) {
             setState(Actor::State::Dead);
             e->setHP(e->getHP() - 1);
+			e->setKnockback(5);
         }
     }
 
