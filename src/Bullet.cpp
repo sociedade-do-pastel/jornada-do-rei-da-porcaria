@@ -5,6 +5,7 @@
 #include "../include/MoveComponent.hpp"
 #include "../include/SpriteComponent.hpp"
 #include "../include/Tile.hpp"
+#include "../include/SoundComponent.hpp"
 
 Bullet::Bullet(Game* game) : Actor(game)
 {
@@ -12,6 +13,8 @@ Bullet::Bullet(Game* game) : Actor(game)
     m_spc->setTexture("tiru.png");
 
     m_mvc = new MoveComponent(this);
+
+    (new SoundComponent(this, "tiru.ogg"))->playSound();
 }
 
 Bullet::~Bullet()
