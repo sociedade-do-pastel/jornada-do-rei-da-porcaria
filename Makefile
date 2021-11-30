@@ -1,5 +1,6 @@
 # should work directly on both GNU/Linux and Windows (g++ through mingw)
 CC = g++
+CC_TOOLS = gcc
 EXECUTABLE = jornada_porcaria
 CC_FLAGS =-Wall -Wno-missing-braces --std=c++17
 LIB_FLAGS =-lraylib -lGL -lm -lpthread -ldl -lrt -lX11
@@ -20,6 +21,7 @@ EXTRA_DEPS =
 # -p flag doesn't work on windows
 MKDIR_COMMAND = mkdir -p $@
 
+# main game compiling logic (including our windows target)
 all: $(OBJ_DIR) $(OBJS)
 	$(CC) $(CC_FLAGS) $(OBJS) -o $(EXECUTABLE) $(LIB_FLAGS)
 
@@ -35,12 +37,36 @@ windows: all
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp 
 	$(CC) $(CC_FLAGS) -MD -o $@ -c $< $(EXTRA_DEPS)
 
-
 $(OBJ_DIR):
 	$(MKDIR_COMMAND)
+
+# compiling commands for our tools (both editor and launcher)
+#
+# some variables have to be modified first if we want to compile them for
+# windows platforms and such
+windows_tools: LIB_FLAGS := -static-libgcc -static-libstdc++ \
+		-lmingw32 -L./$(RAYLIB_DIR)/lib $(WINDOWS_FLAGS)
+windows_tools: CC_TOOLS += -m32 -Wall -Wl,-subsystem,windows
+windows_tools: tools
+
+
+tools: editor launcher
+editor: editor/editor.o
+	$(CC_TOOLS) editor/editor.o -o mapitor $(LIB_FLAGS)
+
+launcher: launcher/launcher.o
+	$(CC_TOOLS) launcher/launcher.o -o launcheiro $(LIB_FLAGS) 
+
+editor/editor.o: editor/editor.c
+	$(CC_TOOLS) -c -o $@ $< -I./$(RAYLIB_DIR)/include
+
+launcher/launcher.o: launcher/launcher.c
+	$(CC_TOOLS) -c -o $@ $< -I./$(RAYLIB_DIR)/include
 
 .PHONY: clean
 
 clean:
-	rm -f $(EXECUTABLE) $(OBJS) $(DEPS)
+	rm -f $(EXECUTABLE) $(OBJS) $(DEPS) $(EXECUTABLE).exe
+	rm -f editor/editor.o mapitor mapitor.exe
+	rm -f launcher/launcher.o launcheiro launcheiro.exe
 

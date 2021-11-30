@@ -55,11 +55,30 @@ O comando é semelhante ao anterior. A variável referente ao executável do com
 make -j4 windows CC=i686-w64-mingw32-g++
 #+end_src
 
-* O launcher
+* As ferramentas
 
-Deve estar presente na pasta raiz, servindo apenas como uma facilidade para execução do jogo com os argumentos corretos de dificuldade (1 para normal e 2 para difícil):
+Ambas as ferramentas (editor e launcher) podem ser compiladas para windows com o comando:
+
+#+begin_src sh
+make windows_tools
+#+end_src
+
+E para sistemas GNU/Linux, com um simples ~make tools~. 
+
+** O launcher
+
+O executável resultante (~launcheiro~) poderá ser encontrado na pasta raiz, servindo apenas como uma facilidade para execução do jogo com os argumentos corretos de dificuldade (1 para normal e 2 para difícil):
 
 [[file:images/exemplo_launcher.jpg]]
+
+** O editor de mapas
+
+Como um "bônus" para o projeto, está presente o editor de mapas ~mapitor~.
+
+[[file:images/exemplo_ed.gif]]
+
+O editor, por motivos de simplicidade, produzirá um arquivo chamado
+~map.jooj~. Este, se presente na pasta raiz, será carregado *por padrão*.
 
 * O executável gerado
 
@@ -68,12 +87,6 @@ Deve estar presente na pasta raiz, servindo apenas como uma facilidade para exec
 #+begin_src sh
 ./jornada_porcaria
 #+end_src
-
-* O editor de mapas
-
-Como um "bônus" para o projeto, está presente o editor de mapas ~mapitor~, este podendo ser facilmente compilado com o ~make~, dependendo apenas da presença da biblioteca para GUI, ~raygui.h~.
-
-[[file:images/exemplo_ed.gif]]
 
 * Mais imagenzinhas
 
