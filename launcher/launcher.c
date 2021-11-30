@@ -73,9 +73,13 @@ int main()
 //------------------------------------------------------------------------------------
 // Controls Functions Definitions (local)
 //------------------------------------------------------------------------------------
-void launch_game(int difficulty)
+void launch_game (int difficulty)
 {
-  char arg[10] = {};
-  sprintf(arg, "%d", difficulty);
-  execl("jornada_porcaria", arg, NULL);
+  char arg[40] = {};
+#ifdef _WIN32
+  sprintf (arg, "jornada_porcaria.exe %d", difficulty);
+#else
+  sprintf (arg, "./jornada_porcaria %d", difficulty);  
+#endif
+  system (arg);
 }
