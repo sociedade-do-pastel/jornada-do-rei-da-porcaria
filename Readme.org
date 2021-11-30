@@ -75,3 +75,8 @@ Como um "bônus" para o projeto, está presente o editor de mapas ~mapitor~, est
 
 [[file:images/exemplo_ed.gif]]
 
+* Mais imagenzinhas
+
+[[file:images/exemplo_jooj.gif]]
+
+[[file:images/exemplo_jooj2.gif]]
