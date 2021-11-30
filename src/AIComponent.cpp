@@ -39,11 +39,11 @@ void AIComponent::search_for_path()
     while (!open.empty()) {
         // then we get the node with the lowest f_cost (or h_cost)
         NodeWeights* current{open.front()};
-	// remove it from the heap
+        // remove it from the heap
         std::pop_heap(open.begin(), open.end(), node_comparison);
         open.pop_back();
 
-	// and push it into the closed list
+        // and push it into the closed list
         closed.push_back(current);
 
         if (current == e_node) {
@@ -54,7 +54,7 @@ void AIComponent::search_for_path()
         for (NodeWeights* neigh :
              brother->get_neighbouring_nodes(current, flying)) {
 
-            if (neigh->referring_node->count == 0
+            if ((neigh->referring_node->count == 0 && !flying)
                 || std::find(closed.begin(), closed.end(), neigh)
                        != closed.end())
                 continue;
