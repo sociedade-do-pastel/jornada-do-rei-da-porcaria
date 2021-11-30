@@ -97,6 +97,7 @@ private:
     void generateOutput();
     void loadData();
     void unloadData();
+	void togglePause();
 
     bool m_isRunning;
     bool m_updatingActors;

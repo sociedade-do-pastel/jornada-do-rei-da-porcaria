@@ -26,7 +26,7 @@ bool Game::initialize()
     // antialiasing
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(1000, 900, "Jornada do rei da porcaria");
-	SetWindowIcon(LoadImage("assets/cabecao.png"));
+    SetWindowIcon(LoadImage("assets/cabecao.png"));
 
     SetTargetFPS(60);
     HideCursor();
@@ -119,6 +119,12 @@ void Game::processInput()
 {
     for (auto a : m_actors)
         a->processInput();
+
+    if (IsKeyPressed(KEY_P)) {
+        m_smanager->add_sound("pare.ogg");
+        m_gameIsPaused = !m_gameIsPaused;
+        togglePause();
+    }
 }
 
 void Game::updateGame()
@@ -172,16 +178,17 @@ void Game::generateOutput()
     m_timeBar->drawBar();
     m_lifeHUD->drawHP(m_player->getHP());
 
-	if (m_endScreen != nullptr)
-		m_endScreen->drawEnd();
+    if (m_endScreen != nullptr)
+        m_endScreen->drawEnd();
 
     EndDrawing();
 }
 
 void Game::loadData()
 {
-    m_isRunning   = true;
-    m_runningTime = 180;
+    m_isRunning    = true;
+    m_gameIsPaused = false;
+    m_runningTime  = 180;
 
     /* 50, 50 refer to the offset in relation to the top-left corner of our
    window */
@@ -210,6 +217,25 @@ void Game::unloadData()
 
     while (!m_actors.empty())
         delete m_actors.back();
+}
+
+void Game::togglePause()
+{
+    auto a
+        = m_gameIsPaused == true ? Actor::State::Paused : Actor::State::Active;
+
+    for (auto& f : getEnemies())
+        f->setState(a);
+
+    for (auto& f : getSpawnTiles())
+        f->setState(a);
+
+    for (auto& f : getCollisionTiles())
+        f->setState(a);
+
+    m_timeBar->setState(a);
+
+    m_player->setState(a);
 }
 
 Texture& Game::getTexture(std::string name)
