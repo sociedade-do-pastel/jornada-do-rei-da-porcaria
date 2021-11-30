@@ -1,11 +1,12 @@
 #include "../include/World.hpp"
-#include "../include/SpawnComponent.hpp"
-#include "../include/Orc.hpp"
 #include "../include/Moth.hpp"
-#include <iostream>
+#include "../include/Orc.hpp"
+#include "../include/SpawnComponent.hpp"
 
 World::World(Game* game, const unsigned top_left_x, const unsigned top_left_y)
-    : Actor{game}, top_left_x{top_left_x}, top_left_y{top_left_y}
+    : Actor{game}, top_left_x{top_left_x}, top_left_y{top_left_y},
+      spawn_points{0, 7, 0, 8, 0, 9, 15, 7,  15, 8,  15, 9,
+                   7, 0, 8, 0, 9, 0, 7,  15, 8,  15, 9,  15}
 {
     if (!load_world())
         generate_world();
@@ -31,10 +32,16 @@ void World::generate_world()
             for (int j{0}; j < main_grid->number_of_nodes; ++j) {
                 unsigned short int value{0};
 
-                if ((i != 0 && j != 0 && i != number_of_nodes - 1
-                     && j != number_of_nodes - 1)
-                    && GetRandomValue(0, 100) > 10)
-                    value = GetRandomValue(1, NUMBER_OF_GRD_TEXTURES - 1);
+                if (std::find_if(spawn_points.begin(), spawn_points.end(),
+                                 [=](Vector2& pos) {
+                                     return (pos.x == j && pos.y == i);
+                                 })
+                    != spawn_points.end())
+                    value = 1;
+                else if ((i != 0 && j != 0 && i != number_of_nodes - 1
+                          && j != number_of_nodes - 1)
+                         && GetRandomValue(0, 100) > 10)
+                    value = GetRandomValue(2, NUMBER_OF_GRD_TEXTURES - 1);
 
                 node* temp       = &(main_grid->world[total_maps][i][j]);
                 temp->count      = value;
@@ -75,13 +82,19 @@ void World::load_actors()
             if (curr_node->count == 0)
                 obstacle = true;
 
-            /* now create a tile with that position */
-            this->tiles.emplace_back(new Tile(
+            Tile* curr_tile{new Tile(
                 this->getGame(), curr_node_pos,
-                get_texture_name_from_int(curr_node->count), obstacle));
+                get_texture_name_from_int(curr_node->count), obstacle)};
+
+            /* now put that tile in our tile list */
+            this->tiles.emplace_back(curr_tile);
+
+            /* and also see if it's a spawn tile */
+            if (curr_node->count == 1)
+                place_spawn_tile(curr_tile);
         }
     }
-    
+
     new SpawnComponent<Orc>(this->tiles[40], 1);
     new SpawnComponent<Moth>(this->tiles[100], 1);
 }
@@ -99,4 +112,9 @@ std::string World::get_texture_name_from_int(unsigned short int number)
 
     sprintf(temp, texture_names[theme], "", number);
     return (std::string)temp;
+}
+
+void World::place_spawn_tile(Tile* spawn_tile)
+{
+    (this->getGame()->getSpawnTiles()).emplace_back(spawn_tile);
 }

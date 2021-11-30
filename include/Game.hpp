@@ -69,6 +69,11 @@ public:
         return this->m_smanager;
     }
 
+    std::vector<Tile*>& getSpawnTiles()
+    {
+        return this->m_spawnTiles;
+    }
+
 private:
     void processInput();
     void updateGame();
@@ -84,12 +89,12 @@ private:
     Texture m_mouseTarget;
 
     std::unordered_map<std::string, Texture> m_textures;
-
     std::vector<Actor*> m_actors;
     std::vector<Actor*> m_pendingActors;
     std::vector<SpriteComponent*> m_sprites;
     std::vector<Enemy*> m_enemies;
     std::vector<Tile*> m_collisionTiles;
+    std::vector<Tile*> m_spawnTiles;
 
     World* m_worldp{nullptr};
     TimeBar* m_timeBar{nullptr};
