@@ -23,7 +23,7 @@ class EndScreen;
 class Game
 {
 public:
-    Game();
+    Game(int difficulty);
     virtual ~Game();
 
     bool initialize();
@@ -83,6 +83,11 @@ public:
         return m_runningTime;
     }
 
+	int getDifficulty() const
+	{
+		return m_difficulty;
+	}
+
     void setRunning(bool b)
     {
         m_isRunning = b;
@@ -106,6 +111,7 @@ private:
 
     int m_invincibilityTime{0};
     int m_runningTime;
+	int m_difficulty;
 
     Player* m_player{nullptr};
 

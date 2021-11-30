@@ -31,7 +31,10 @@ Player::Player(Game* game) : Actor(game)
     m_shc->setProjectileSpeed(450.0f);
     m_shc->setShotInterval(35);
 
-    m_hp = 5;
+    if (getGame()->getDifficulty() == 1)
+        m_hp = 5;
+    else
+        m_hp = 3;
 }
 
 Player::~Player()
@@ -99,7 +102,7 @@ void Player::updateActor()
 
             getGame()->activateDamageInvinsibility();
             getGame()->getSoundManager()->add_sound("zawarudo.ogg");
-                e->setState(Actor::State::Dead);
+            e->setState(Actor::State::Dead);
         }
     }
 

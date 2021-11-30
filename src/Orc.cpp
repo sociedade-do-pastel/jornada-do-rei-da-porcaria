@@ -21,8 +21,8 @@ Orc::Orc(Game* game) : Enemy(game)
     move_component = new MoveComponent(this);
     this->setSpeed(100.0);
 
-	setWeight(200);
-    setHP(3);
+    setWeight(200);
+    setHP(2 + getGame()->getDifficulty());
 }
 
 Orc::~Orc()
@@ -32,8 +32,8 @@ Orc::~Orc()
 // TODO: maybe make this following behaviour a component
 void Orc::updateActor()
 {
-	Enemy::updateActor();
-	
+    Enemy::updateActor();
+
     // if we don't have a path, just stay in place
     if (this->getAI()->getCurrentPath().empty()) {
         move_component->setHorizontalSpeed(0);

@@ -13,7 +13,7 @@
 #include "../include/TimeBar.hpp"
 #include "../include/World.hpp"
 
-Game::Game()
+Game::Game(int difficulty) : m_difficulty(difficulty)
 {
 }
 
@@ -226,7 +226,7 @@ void Game::unloadData()
 
 void Game::togglePause()
 {
-	m_gameIsPaused = !m_gameIsPaused;
+    m_gameIsPaused = !m_gameIsPaused;
     auto a
         = m_gameIsPaused == true ? Actor::State::Paused : Actor::State::Active;
 

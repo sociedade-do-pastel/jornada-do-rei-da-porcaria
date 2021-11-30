@@ -1,8 +1,8 @@
 #include "../include/Game.hpp"
 
-int main()
+int main(int argc, char *argv[])
 {
-    Game game;
+    Game game(atoi(argv[1]));
     bool success = game.initialize();
 
     if (success)
