@@ -75,6 +75,9 @@ Como um "bônus" para o projeto, está presente o editor de mapas ~mapitor~, est
 
 [[file:images/exemplo_ed.gif]]
 
+O editor, por motivos de simplicidade, produzirá um arquivo chamado
+~map.jooj~. Este, se presente na pasta raiz, será carregado *por padrão*.
+
 * Mais imagenzinhas
 
 [[file:images/exemplo_jooj.gif]]
