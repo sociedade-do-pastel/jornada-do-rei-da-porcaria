@@ -5,12 +5,13 @@
 
 #include "../include/AnimSpriteComponent.hpp"
 #include "../include/Bullet.hpp"
+#include "../include/EndScreen.hpp"
 #include "../include/Enemy.hpp"
 #include "../include/Game.hpp"
 #include "../include/InputComponent.hpp"
 #include "../include/ShootComponent.hpp"
+#include "../include/SoundManager.hpp"
 #include "../include/Tile.hpp"
-#include "../include/EndScreen.hpp"
 
 Player::Player(Game* game) : Actor(game)
 {
@@ -97,12 +98,13 @@ void Player::updateActor()
             m_hp -= 1;
 
             getGame()->activateDamageInvinsibility();
-            e->setState(Actor::State::Dead);
+            getGame()->getSoundManager()->add_sound("zawarudo.ogg");
+                e->setState(Actor::State::Dead);
         }
     }
 
     if (getHP() <= 0)
-		new EndScreen(getGame(), EndScreen::Outcome::Defeat);
+        new EndScreen(getGame(), EndScreen::Outcome::Defeat);
 
     processKeyboard();
 }
