@@ -16,6 +16,7 @@ class World;
 class Enemy;
 class Tile;
 class TimeBar;
+class LifeHUD;
 
 class Game
 {
@@ -84,4 +85,5 @@ private:
 	
     World* m_worldp{nullptr};
 	TimeBar* m_timeBar{nullptr};
+	LifeHUD* m_lifeHUD{nullptr};
 };

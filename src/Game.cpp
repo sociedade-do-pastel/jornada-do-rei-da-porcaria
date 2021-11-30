@@ -3,6 +3,7 @@
 #include <raylib.h>
 
 #include "../include/Actor.hpp"
+#include "../include/LifeHUD.hpp"
 #include "../include/Orc.hpp"
 #include "../include/Player.hpp"
 #include "../include/SpriteComponent.hpp"
@@ -22,7 +23,7 @@ bool Game::initialize()
 {
     // antialiasing
     SetConfigFlags(FLAG_MSAA_4X_HINT);
-    InitWindow(900, 900, "Jornada do rei da porcaria");
+    InitWindow(1000, 900, "Jornada do rei da porcaria");
 
     SetTargetFPS(60);
     HideCursor();
@@ -160,7 +161,8 @@ void Game::generateOutput()
         WHITE);
 
     m_timeBar->drawBar();
-	
+    m_lifeHUD->drawHP(m_player->getHP());
+
     EndDrawing();
 }
 
@@ -168,9 +170,10 @@ void Game::loadData()
 {
     /* 50, 50 refer to the offset in relation to the top-left corner of our
    window */
-    m_worldp  = new World(this, 50, 50);
+    m_worldp  = new World(this, 116, 50);
     m_player  = new Player(this);
     m_timeBar = new TimeBar(this, 60);
+    m_lifeHUD = new LifeHUD(this);
 
     m_player->setPosition({200, 500});
 
@@ -178,7 +181,7 @@ void Game::loadData()
 
     m_timeBar->setPosition({m_worldp->get_top_left().x, 20});
 
-    new Orc(this);
+    m_lifeHUD->setPosition({30, 50});
 }
 
 void Game::unloadData()
