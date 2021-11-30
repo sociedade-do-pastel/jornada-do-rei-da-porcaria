@@ -10,6 +10,7 @@
 #include "../include/Tile.hpp"
 #include "../include/TimeBar.hpp"
 #include "../include/World.hpp"
+#include "../include/SoundManager.hpp"
 
 Game::Game()
 {
@@ -182,6 +183,8 @@ void Game::loadData()
     m_timeBar->setPosition({m_worldp->get_top_left().x, 20});
 
     m_lifeHUD->setPosition({30, 50});
+
+    this->m_smanager = new SoundManager(this);
 }
 
 void Game::unloadData()

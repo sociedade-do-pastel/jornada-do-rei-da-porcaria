@@ -17,6 +17,7 @@ class Enemy;
 class Tile;
 class TimeBar;
 class LifeHUD;
+class SoundManager;
 
 class Game
 {
@@ -63,6 +64,11 @@ public:
         return this->m_player;
     }
 
+    SoundManager* getSoundManager()
+    {
+        return this->m_smanager;
+    }
+
 private:
     void processInput();
     void updateGame();
@@ -84,8 +90,9 @@ private:
     std::vector<SpriteComponent*> m_sprites;
     std::vector<Enemy*> m_enemies;
     std::vector<Tile*> m_collisionTiles;
-	
+
     World* m_worldp{nullptr};
-	TimeBar* m_timeBar{nullptr};
-	LifeHUD* m_lifeHUD{nullptr};
+    TimeBar* m_timeBar{nullptr};
+    LifeHUD* m_lifeHUD{nullptr};
+    SoundManager* m_smanager{nullptr};
 };
