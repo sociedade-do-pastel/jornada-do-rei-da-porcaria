@@ -46,6 +46,8 @@ public:
     void activateDamageInvinsibility();
     void deactivateDamageInvinsibility();
 
+	void togglePause();
+
     std::vector<Enemy*>& getEnemies()
     {
         return m_enemies;
@@ -97,7 +99,6 @@ private:
     void generateOutput();
     void loadData();
     void unloadData();
-	void togglePause();
 
     bool m_isRunning;
     bool m_updatingActors;

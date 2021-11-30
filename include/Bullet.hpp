@@ -17,7 +17,7 @@ public:
 
     // getters
     Rectangle getColRec() const
-    {		
+    {
         Rectangle r;
         r.width  = m_spc->getTexWidth();
         r.height = m_spc->getTexHeight();
@@ -33,4 +33,5 @@ public:
 private:
     MoveComponent* m_mvc{nullptr};
     SpriteComponent* m_spc{nullptr};
+	bool m_alreadyHit{false};
 };

@@ -38,7 +38,7 @@ bool Game::initialize()
 
 void Game::runLoop()
 {
-    while (!WindowShouldClose() && m_isRunning) {
+    while (!WindowShouldClose()) {
         processInput();
         updateGame();
         generateOutput();
@@ -120,9 +120,8 @@ void Game::processInput()
     for (auto a : m_actors)
         a->processInput();
 
-    if (IsKeyPressed(KEY_P)) {
+    if (IsKeyPressed(KEY_P) && m_isRunning) {
         m_smanager->add_sound("pare.ogg");
-        m_gameIsPaused = !m_gameIsPaused;
         togglePause();
     }
 }
@@ -227,6 +226,7 @@ void Game::unloadData()
 
 void Game::togglePause()
 {
+	m_gameIsPaused = !m_gameIsPaused;
     auto a
         = m_gameIsPaused == true ? Actor::State::Paused : Actor::State::Active;
 

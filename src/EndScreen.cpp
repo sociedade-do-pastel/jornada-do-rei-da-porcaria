@@ -10,6 +10,8 @@ EndScreen::EndScreen(Game* game, Outcome out) : Actor(game)
         m_endText = "Defeat";
 
     game->setEndScreen(this);
+    game->setRunning(false);
+	game->togglePause();
 }
 
 EndScreen::~EndScreen()

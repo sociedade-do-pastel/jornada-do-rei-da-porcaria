@@ -28,7 +28,10 @@ void Bullet::updateActor()
         setState(Actor::State::Dead);
 
     for (auto& e : getGame()->getEnemies()) {
+		if (m_alreadyHit)
+			break;
         if (CheckCollisionRecs(getColRec(), e->getColRec())) {
+			m_alreadyHit = true;
             setState(Actor::State::Dead);
             e->setHP(e->getHP() - 1);
 			e->setKnockback(5);
