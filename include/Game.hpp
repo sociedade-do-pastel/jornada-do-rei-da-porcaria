@@ -41,6 +41,8 @@ public:
     // void addCollision(CollisionComponent* collision);
     // void removeCollision(CollisionComponent* collision);
 
+	void activateDamageInvinsibility();
+
     std::vector<Enemy*>& getEnemies()
     {
         return m_enemies;

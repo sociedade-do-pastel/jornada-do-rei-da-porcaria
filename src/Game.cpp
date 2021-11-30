@@ -206,3 +206,11 @@ Texture& Game::getTexture(std::string name)
     m_textures[name]   = LoadTexture(target.c_str());
     return m_textures[name];
 }
+
+void Game::activateDamageInvinsibility()
+{
+    for (auto& f : getEnemies())
+        f->setState(Actor::State::Paused);
+
+	m_timeBar->setState(Actor::State::Paused);
+}
