@@ -43,6 +43,7 @@ public:
     // void removeCollision(CollisionComponent* collision);
 
 	void activateDamageInvinsibility();
+	void deactivateDamageInvinsibility();
 
     std::vector<Enemy*>& getEnemies()
     {
@@ -78,6 +79,8 @@ private:
 
     bool m_isRunning;
     bool m_updatingActors;
+	bool m_gameIsPaused;
+	int m_invincibilityTime{0};
 
     Player* m_player{nullptr};
 

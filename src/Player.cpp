@@ -81,9 +81,7 @@ void Player::updateActor()
         if (CheckCollisionRecs(getColRec(), e->getColRec())) {
             m_hp -= 1;
 
-            for (auto& f : getGame()->getEnemies())
-                f->setState(Actor::State::Paused);
-
+			getGame()->activateDamageInvinsibility();
             e->setState(Actor::State::Dead);
         }
     }

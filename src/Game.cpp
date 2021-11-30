@@ -6,11 +6,11 @@
 #include "../include/LifeHUD.hpp"
 #include "../include/Orc.hpp"
 #include "../include/Player.hpp"
+#include "../include/SoundManager.hpp"
 #include "../include/SpriteComponent.hpp"
 #include "../include/Tile.hpp"
 #include "../include/TimeBar.hpp"
 #include "../include/World.hpp"
-#include "../include/SoundManager.hpp"
 
 Game::Game()
 {
@@ -142,6 +142,12 @@ void Game::updateGame()
     // Delete dead actors (which removes them from mActors)
     for (auto actor : deadActors)
         delete actor;
+
+    if (m_invincibilityTime != 0) {
+        --m_invincibilityTime;
+        if (m_invincibilityTime == 0)
+            deactivateDamageInvinsibility();
+    }
 }
 
 void Game::generateOutput()
@@ -173,7 +179,7 @@ void Game::loadData()
    window */
     m_worldp  = new World(this, 116, 50);
     m_player  = new Player(this);
-    m_timeBar = new TimeBar(this, 60);
+    m_timeBar = new TimeBar(this, 180);
     m_lifeHUD = new LifeHUD(this);
 
     m_player->setPosition({200, 500});
@@ -215,5 +221,15 @@ void Game::activateDamageInvinsibility()
     for (auto& f : getEnemies())
         f->setState(Actor::State::Paused);
 
-	m_timeBar->setState(Actor::State::Paused);
+    m_timeBar->setState(Actor::State::Paused);
+
+    m_invincibilityTime = 180;
+}
+
+void Game::deactivateDamageInvinsibility()
+{
+    for (auto& f : getEnemies())
+        f->setState(Actor::State::Active);
+
+    m_timeBar->setState(Actor::State::Active);
 }
