@@ -1,5 +1,6 @@
 #include "../include/Player.hpp"
 
+#include <algorithm>
 #include <raymath.h>
 
 #include "../include/AnimSpriteComponent.hpp"
@@ -27,6 +28,8 @@ Player::Player(Game* game) : Actor(game)
     m_shc = new ShootComponent(this);
     m_shc->setProjectileSpeed(450.0f);
     m_shc->setShotInterval(35);
+
+    m_hp = 5;
 }
 
 Player::~Player()
@@ -73,6 +76,20 @@ void Player::updateActor()
                 setPosition(Vector2Add(getPosition(), {r.width, 0}));
         }
     }
+
+    for (auto& e : getGame()->getEnemies()) {
+        if (CheckCollisionRecs(getColRec(), e->getColRec())) {
+            m_hp -= 1;
+
+            for (auto& f : getGame()->getEnemies())
+                f->setState(Actor::State::Paused);
+
+            e->setState(Actor::State::Dead);
+        }
+    }
+
+    // if (getHP() == 0)
+    // 	setState(Actor::State::Dead);
 
     processKeyboard();
 }

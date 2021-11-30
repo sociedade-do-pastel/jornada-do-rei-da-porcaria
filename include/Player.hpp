@@ -23,9 +23,9 @@ public:
         return m_speed;
     }
 
-    int getLifes() const
+    int getHP() const
     {
-        return m_lifes;
+        return m_hp;
     }
 
     Rectangle getColRec() const override
@@ -39,9 +39,15 @@ public:
         return r;
     }
 
+    // setters
+    void setHP(int hp)
+    {
+        m_hp = hp;
+    }
+
 private:
     float m_speed;
-    int m_lifes;
+    int m_hp;
 
     AnimSpriteComponent* m_spc{nullptr};
     InputComponent* m_ipc{nullptr};
