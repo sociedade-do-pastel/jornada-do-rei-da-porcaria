@@ -100,8 +100,8 @@ void Player::updateActor()
         }
     }
 
-    // if (getHP() == 0)
-    // 	setState(Actor::State::Dead);
+    if (getHP() <= 0)
+		getGame()->setRunning(false);
 
     processKeyboard();
 }

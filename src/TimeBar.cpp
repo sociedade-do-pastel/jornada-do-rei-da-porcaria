@@ -16,6 +16,9 @@ void TimeBar::updateActor()
 {
     if (getState() != Actor::State::Paused)
         ++m_timePassed;
+
+	if (m_timePassed >= m_duration)
+		getGame()->setRunning(false);
 }
 
 void TimeBar::drawBar()

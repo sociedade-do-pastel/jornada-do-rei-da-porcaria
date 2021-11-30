@@ -75,6 +75,16 @@ public:
         return this->m_spawnTiles;
     }
 
+	int getRunningTime() const
+	{
+		return m_runningTime;
+	}
+
+	void setRunning(bool b)
+	{
+		m_isRunning = b;
+	}
+
 private:
     void processInput();
     void updateGame();
@@ -85,7 +95,9 @@ private:
     bool m_isRunning;
     bool m_updatingActors;
 	bool m_gameIsPaused;
+	
 	int m_invincibilityTime{0};
+	int m_runningTime;
 
     Player* m_player{nullptr};
 

@@ -114,5 +114,5 @@ std::string World::get_texture_name_from_int(unsigned short int number)
 void World::place_spawn_tile(Tile* spawn_tile)
 {
     (this->getGame()->getSpawnTiles()).emplace_back(spawn_tile);
-	new SpawnComponent<Moth>(spawn_tile, 180);
+	new SpawnComponent<Moth>(spawn_tile, getGame()->getRunningTime());
 }

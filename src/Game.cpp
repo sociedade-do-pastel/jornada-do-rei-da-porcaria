@@ -36,7 +36,7 @@ bool Game::initialize()
 
 void Game::runLoop()
 {
-    while (!WindowShouldClose()) {
+    while (!WindowShouldClose() && m_isRunning) {
         processInput();
         updateGame();
         generateOutput();
@@ -175,11 +175,14 @@ void Game::generateOutput()
 
 void Game::loadData()
 {
+    m_isRunning = true;
+	m_runningTime = 180;
+
     /* 50, 50 refer to the offset in relation to the top-left corner of our
    window */
     m_worldp  = new World(this, 116, 50);
     m_player  = new Player(this);
-    m_timeBar = new TimeBar(this, 180);
+    m_timeBar = new TimeBar(this, m_runningTime);
     m_lifeHUD = new LifeHUD(this);
 
     m_player->setPosition({GetScreenWidth() / 2.0f, GetScreenWidth() / 2.0f});
@@ -221,7 +224,7 @@ void Game::activateDamageInvinsibility()
     for (auto& f : getEnemies())
         f->setState(Actor::State::Paused);
 
-	for (auto& f : getSpawnTiles())
+    for (auto& f : getSpawnTiles())
         f->setState(Actor::State::Paused);
 
     m_timeBar->setState(Actor::State::Paused);
@@ -234,8 +237,8 @@ void Game::deactivateDamageInvinsibility()
     for (auto& f : getEnemies())
         f->setState(Actor::State::Active);
 
-	for (auto& f : getSpawnTiles())
+    for (auto& f : getSpawnTiles())
         f->setState(Actor::State::Active);
-	
+
     m_timeBar->setState(Actor::State::Active);
 }
