@@ -9,7 +9,7 @@ SRC_DIR = src
 OBJ_DIR = objs
 
 # the directory in which raylib4.0 is present
-RAYLIB_DIR = raylib-4.0
+RAYLIB_DIR = raylib-4.0.0_win32_mingw-w64
 
 # files that're gonna get read/produced by either the compiler or linker
 SRC := $(wildcard $(SRC_DIR)/*.cpp)
