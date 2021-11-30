@@ -1,0 +1,77 @@
+#+title: Jornada do rei da porcaria
+
+Seja bem vindo ao repositório do jogo *Jornada do rei da porcaria*, uma homenagem ao /minigame/ *Journey of the prairie king* que pode ser encontrado no sucesso /indie/ Stardew Valley.
+
+[[file:assets/banner.png]]
+
+* Instruções para compilação
+
+A *raylib* pode ser encontrada em sua versão 4.0 e, para os casos em que a biblioteca não esteja presente nos repositórios de sua distribuição favorita, sempre é possível (e fácil) sua compilação e instalação.
+
+** Sistemas GNU/Linux
+
+Ao menos no *Arch Linux*, basta:
+
+#+begin_src sh
+sudo pacman -S raylib
+#+end_src
+
+Como dito anteriormente, caso a biblioteca não esteja presente nos seus repositórios, sua compilação é [[https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux][muito fácil (link)]].
+
+Além disso, é possível obter diretamente a biblioteca através da tela [[https://github.com/raysan5/raylib/releases/tag/4.0.0][releases]] (o *Makefile* teria que ser modificado para tal).
+
+Agora é possível compilar o seu jogo, basta invocar o programa ~make~ no diretório raiz deste, informando, se desejado, o número de subprocessos para cada compilação de arquivo objeto intermediária:
+
+#+begin_src sh
+make -j4
+#+end_src
+
+** Windows
+
+Como sempre, mais complicado para se trabalhar em/com. O *Makefile* já vem com um *target* dedicado para o windows, dependendo dos seguintes programas ou pacotes:
+
+- mingw32 ou MSYS2 com os compiladores para C/C++ da suíte da GNU, além do ~make~
+- Que seu ambiente gráfico suporte OpenGL > 1.1
+
+
+Após isso, obtenha a *raylib-4.0_win32_mingw-w64* por meio da tela de [[https://github.com/raysan5/raylib/releases/tag/4.0.0][releases]] e descompacte-a na pasta raiz do projeto (com aquele mesmo nome). Basta agora, executar o seguinte comando:
+
+#+begin_src sh
+make -j4 windows
+#+end_src
+
+Deve-se salientar que o envio para o professor já contém todos os requisitos para compilação.
+
+*** Crosscompiling  para windows de sistemas GNU/Linux
+
+Após seguir os passos ilustrados na seção [[Windows]], o usuário que deseja compilar para Windows deve garantir que:
+
+- possua o mingw32 instalado
+- tenha todas as *dlls* requeridas na pasta raiz do projeto
+
+O comando é semelhante ao anterior. A variável referente ao executável do compilador deve ser modificada, entretanto.
+
+#+begin_src sh
+make -j4 windows CC=i686-w64-mingw32-g++
+#+end_src
+
+* O launcher
+
+Deve estar presente na pasta raiz, servindo apenas como uma facilidade para execução do jogo com os argumentos corretos de dificuldade (1 para normal e 2 para difícil):
+
+[[file:images/exemplo_launcher.jpg]]
+
+* O executável gerado
+
+".exe" ou não, o executável recebe o nome ~jornada_porcaria~, este podendo ser invocado por meio de seu terminal/cmd ou através do ~launcher~, o qual controla a dificuldade padrão do jogo:
+
+#+begin_src sh
+./jornada_porcaria
+#+end_src
+
+* O editor de mapas
+
+Como um "bônus" para o projeto, está presente o editor de mapas ~mapitor~, este podendo ser facilmente compilado com o ~make~, dependendo apenas da presença da biblioteca para GUI, ~raygui.h~.
+
+[[file:images/exemplo_ed.gif]]
+
