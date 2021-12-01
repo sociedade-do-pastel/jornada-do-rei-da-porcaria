@@ -93,3 +93,5 @@ O editor, por motivos de simplicidade, produzirá um arquivo chamado
 [[file:images/exemplo_jooj.gif]]
 
 [[file:images/exemplo_jooj2.gif]]
+
+[[file:images/exemplo_jooj3.gif]]
