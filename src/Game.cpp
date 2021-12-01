@@ -266,6 +266,7 @@ void Game::activateDamageInvinsibility()
 
     m_timeBar->setState(Actor::State::Paused);
 
+    m_player->setTakeDamage(false);
     m_invincibilityTime = 180;
 }
 
@@ -277,5 +278,6 @@ void Game::deactivateDamageInvinsibility()
     for (auto& f : getSpawnTiles())
         f->setState(Actor::State::Active);
 
+    m_player->setTakeDamage(true);
     m_timeBar->setState(Actor::State::Active);
 }

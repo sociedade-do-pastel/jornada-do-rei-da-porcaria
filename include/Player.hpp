@@ -45,11 +45,17 @@ public:
         m_hp = hp;
     }
 
+	void setTakeDamage(int b)
+	{
+		m_takeDamage = b;
+	}
+	
 	void setEndFrame(int i);
 
 private:
     float m_speed;
     int m_hp;
+	bool m_takeDamage{true};
 
     AnimSpriteComponent* m_spc{nullptr};
     InputComponent* m_ipc{nullptr};

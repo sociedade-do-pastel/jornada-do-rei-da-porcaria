@@ -45,9 +45,9 @@ void Player::updateActor()
 {
     Actor::updateActor();
 
-	if (m_hp == 0)
-		return;
-	
+    if (m_hp == 0)
+        return;
+
     float angle = Vector2Angle(getPosition(), GetMousePosition());
 
     if (m_ipc->getHorizontalSpeed() != 0 || m_ipc->getVerticalSpeed() != 0) {
@@ -100,6 +100,9 @@ void Player::updateActor()
     }
 
     for (auto& e : getGame()->getEnemies()) {
+        if (!m_takeDamage)
+            break;
+
         if (CheckCollisionRecs(getColRec(), e->getColRec())) {
             m_hp -= 1;
 
@@ -126,5 +129,5 @@ void Player::processKeyboard()
 void Player::setEndFrame(int i)
 {
     m_spc->setFrameSeq({i});
-	m_spc->changeNow();
+    m_spc->changeNow();
 }
