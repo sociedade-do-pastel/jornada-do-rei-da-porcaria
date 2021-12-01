@@ -10,7 +10,7 @@ SRC_DIR = src
 OBJ_DIR = objs
 
 # the directory in which raylib4.0 is present
-RAYLIB_DIR = raylib-4.0.0_win32_mingw-w64
+RAYLIB_DIR = raylib-4.0.0_win64_mingw-w64
 
 # files that're gonna get read/produced by either the compiler or linker
 SRC := $(wildcard $(SRC_DIR)/*.cpp)
@@ -27,7 +27,7 @@ all: $(OBJ_DIR) $(OBJS)
 
 windows: LIB_FLAGS := -static-libgcc -static-libstdc++ \
 	-lmingw32 -L./$(RAYLIB_DIR)/lib $(WINDOWS_FLAGS)
-windows: CC_FLAGS := -m32 $(CC_FLAGS) -Wl,-subsystem,windows
+windows: CC_FLAGS := $(CC_FLAGS) -Wl,-subsystem,windows
 windows: MKDIR_COMMAND = mkdir $@
 windows: EXTRA_DEPS := -I./$(RAYLIB_DIR)/include
 windows: all
@@ -46,7 +46,7 @@ $(OBJ_DIR):
 # windows platforms and such
 windows_tools: LIB_FLAGS := -static-libgcc -static-libstdc++ \
 		-lmingw32 -L./$(RAYLIB_DIR)/lib $(WINDOWS_FLAGS)
-windows_tools: CC_TOOLS += -m32 -Wall -Wl,-subsystem,windows
+windows_tools: CC_TOOLS += -Wall -Wl,-subsystem,windows
 windows_tools: tools
 
 

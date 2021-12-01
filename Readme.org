@@ -30,11 +30,11 @@ make -j4
 
 Como sempre, mais complicado para se trabalhar em/com. O *Makefile* já vem com um *target* dedicado para o windows, dependendo dos seguintes programas ou pacotes:
 
-- mingw32 ou MSYS2 com os compiladores para C/C++ da suíte da GNU, além do ~make~
+- MSYS2 com os compiladores de 64bits para C/C++ da suíte da GNU, além do ~make~
 - Que seu ambiente gráfico suporte OpenGL > 1.1
 
 
-Após isso, obtenha a *raylib-4.0_win32_mingw-w64* por meio da tela de [[https://github.com/raysan5/raylib/releases/tag/4.0.0][releases]] e descompacte-a na pasta raiz do projeto (com aquele mesmo nome). Basta agora, executar o seguinte comando:
+Após isso, obtenha a *raylib-4.0_win64_mingw-w64* por meio da tela de [[https://github.com/raysan5/raylib/releases/tag/4.0.0][releases]] e descompacte-a na pasta raiz do projeto (com aquele mesmo nome). Basta agora, executar o seguinte comando:
 
 #+begin_src sh
 make -j4 windows
@@ -42,17 +42,19 @@ make -j4 windows
 
 Deve-se salientar que o envio para o professor já contém todos os requisitos para compilação.
 
+Outra nota importante é que, para alguns casos, o programa ~make~ é invocado,  no windows, através do comando ~mingw32-make~. 
+
 *** Crosscompiling  para windows de sistemas GNU/Linux
 
 Após seguir os passos ilustrados na seção [[Windows]], o usuário que deseja compilar para Windows deve garantir que:
 
-- possua o mingw32 instalado
+- possua o mingw32 instalado e seus binários de 64 bits
 - tenha todas as *dlls* requeridas na pasta raiz do projeto
 
 O comando é semelhante ao anterior. A variável referente ao executável do compilador deve ser modificada, entretanto.
 
 #+begin_src sh
-make -j4 windows CC=i686-w64-mingw32-g++
+make -j4 windows CC=x86_64-w64-mingw32-g++
 #+end_src
 
 * As ferramentas
@@ -85,7 +87,7 @@ O editor, por motivos de simplicidade, produzirá um arquivo chamado
 ".exe" ou não, o executável recebe o nome ~jornada_porcaria~, este podendo ser invocado por meio de seu terminal/cmd ou através do ~launcher~, o qual controla a dificuldade padrão do jogo:
 
 #+begin_src sh
-./jornada_porcaria
+./jornada_porcaria # ou jornada_porcaria.exe nos sistemas inferiores :D
 #+end_src
 
 * Mais imagenzinhas
